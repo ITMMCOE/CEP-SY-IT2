@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Action - Behavioral Auth</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      padding: 60px 40px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    .icon {
+      font-size: 80px;
+      margin-bottom: 30px;
+    }
+    
+    h1 {
+      font-size: 32px;
+      color: #1f2937;
+      margin-bottom: 15px;
+    }
+    
+    .subtitle {
+      font-size: 18px;
+      color: #6b7280;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+    
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .option-card {
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .option-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+    
+    .option-card.green:hover { border-color: #22c55e; }
+    .option-card.orange:hover { border-color: #f97316; }
+    .option-card.red:hover { border-color: #dc2626; }
+    
+    .option-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .option-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+    
+    .option-description {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+    
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .btn-green {
+      background: #22c55e;
+      color: white;
+    }
+    
+    .btn-green:hover {
+      background: #16a34a;
+    }
+    
+    .btn-orange {
+      background: #f97316;
+      color: white;
+    }
+    
+    .btn-orange:hover {
+      background: #ea580c;
+    }
+    
+    .btn-red {
+      background: #dc2626;
+      color: white;
+    }
+    
+    .btn-red:hover {
+      background: #b91c1c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">🔐</div>
+    <h1>Identity Verified!</h1>
+    <p class="subtitle">
+      Your email verification was successful. Now choose what action to take:
+    </p>
+    
+    <div class="options">
+      <div class="option-card green" id="option-yes">
+        <div class="option-icon">✅</div>
+        <div class="option-title">Yes, it's me</div>
+        <div class="option-description">
+          Restore full access. It was just me typing unusually (tired, one hand, etc.)
+        </div>
+      </div>
+      
+      <div class="option-card orange" id="option-known">
+        <div class="option-icon">👥</div>
+        <div class="option-title">Someone I know</div>
+        <div class="option-description">
+          Enable limited access mode. A family member or friend is using my laptop - block sensitive sites and passwords.
+        </div>
+      </div>
+      
+      <div class="option-card red" id="option-not-me">
+        <div class="option-icon">🚨</div>
+        <div class="option-title">No, it's not me!</div>
+        <div class="option-description">
+          Terminate session immediately. Unauthorized access detected - close all tabs and send security alert.
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="action-choice.js"></script>
+</body>
+</html>

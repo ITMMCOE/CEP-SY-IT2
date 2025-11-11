@@ -1,0 +1,70 @@
+{
+  "modelInfo": {
+    "name": "Mouse Dynamics Model",
+    "type": "Best Model from Altair AI",
+    "accuracy": 0.582,
+    "trainingDate": "2025-10-28",
+    "features": 43,
+    "users": 65,
+    "trainingSize": 60905,
+    "note": "Trained in Altair AI Studio - 58.2% accuracy achieved"
+  },
+  "thresholds": {
+    "anomalyThreshold": 0.65,
+    "criticalThreshold": 0.85,
+    "confidenceMin": 0.50
+  },
+  "features": {
+    "avgSpeed": {
+      "mean": 285.4,
+      "std": 78.2,
+      "min": 100.0,
+      "max": 600.0,
+      "weight": 0.20
+    },
+    "straightness": {
+      "mean": 0.742,
+      "std": 0.118,
+      "min": 0.30,
+      "max": 0.95,
+      "weight": 0.20
+    },
+    "avgCurvature": {
+      "mean": 0.158,
+      "std": 0.065,
+      "min": 0.0,
+      "max": 0.50,
+      "weight": 0.20
+    },
+    "pauseFrequency": {
+      "mean": 0.125,
+      "std": 0.048,
+      "min": 0.0,
+      "max": 0.40,
+      "weight": 0.15
+    },
+    "clickPattern": {
+      "mean": 0.235,
+      "std": 0.085,
+      "min": 0.0,
+      "max": 0.60,
+      "weight": 0.15
+    },
+    "accelerationProfile": {
+      "mean": 142.8,
+      "std": 52.3,
+      "min": 50.0,
+      "max": 350.0,
+      "weight": 0.10
+    }
+  },
+  "normalization": {
+    "method": "z-score",
+    "scaleRange": [0, 1]
+  },
+  "inference": {
+    "minSamplesRequired": 100,
+    "adaptiveLearningRate": 0.08,
+    "baselineUpdateInterval": 150
+  }
+}

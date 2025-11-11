@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Alert - Behavioral Authentication</title>
+  <link rel="stylesheet" href="security-alert.css">
+</head>
+<body>
+  <div class="alert-container">
+    <div class="alert-icon">
+      <div class="shield-icon">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M12 8v4"/>
+          <path d="M12 16h.01"/>
+        </svg>
+      </div>
+    </div>
+    
+    <h1 class="alert-title">Unusual Behavior Detected</h1>
+    
+    <p class="alert-message">
+      We've detected behavioral patterns that don't match your typical usage. 
+      For your security, we need to verify your identity.
+    </p>
+    
+    <div class="anomaly-details" id="anomalyDetails">
+      <div class="detail-row">
+        <span class="label">Anomaly Score:</span>
+        <span class="value" id="anomalyScore">--</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Detected at:</span>
+        <span class="value" id="detectionTime">--</span>
+      </div>
+    </div>
+    
+    <div class="question-section">
+      <h2 class="question">Is this you using this browser?</h2>
+    </div>
+    
+    <div class="button-container">
+      <button class="btn btn-primary" id="btnYesMe" data-response="yes">
+        <span class="btn-icon">✓</span>
+        <span class="btn-text">Yes, it's me</span>
+        <span class="btn-subtitle">Continue with full access</span>
+      </button>
+      
+      <button class="btn btn-warning" id="btnKnown" data-response="known">
+        <span class="btn-icon">👥</span>
+        <span class="btn-text">Someone I know</span>
+        <span class="btn-subtitle">Limited access mode</span>
+      </button>
+      
+      <button class="btn btn-danger" id="btnNotMe" data-response="no">
+        <span class="btn-icon">✕</span>
+        <span class="btn-text">No, it's not me</span>
+        <span class="btn-subtitle">Block access immediately</span>
+      </button>
+    </div>
+    
+    <div class="footer-info">
+      <p>
+        <strong>⚠️ Security Notice:</strong> 
+        Your response will be logged and encrypted before transmission to your email.
+      </p>
+    </div>
+    
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+      <div class="spinner"></div>
+      <p>Processing your response...</p>
+    </div>
+  </div>
+  
+  <script src="security-alert.js"></script>
+</body>
+</html>

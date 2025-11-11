@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Behavioral Authentication</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <div class="logo">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <h1>Behavioral Auth</h1>
+    </div>
+    
+    <div class="status-section">
+      <div class="status-indicator" id="statusIndicator">
+        <div class="status-dot"></div>
+        <span class="status-text" id="statusText">Loading...</span>
+      </div>
+      
+      <div class="access-level" id="accessLevel">
+        <span class="label">Access Level:</span>
+        <span class="value" id="accessValue">--</span>
+      </div>
+    </div>
+    
+    <div class="stats-section">
+      <div class="stat-card">
+        <div class="stat-icon">⌨️</div>
+        <div class="stat-content">
+          <div class="stat-value" id="keystrokeCount">0</div>
+          <div class="stat-label">Keystrokes</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">🖱️</div>
+        <div class="stat-content">
+          <div class="stat-value" id="mouseCount">0</div>
+          <div class="stat-label">Mouse Events</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-content">
+          <div class="stat-value" id="accuracyScore">--</div>
+          <div class="stat-label">Match Score</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="confidence-section">
+      <div class="confidence-header">
+        <span>Authentication Confidence</span>
+        <span class="confidence-value" id="confidenceValue">0%</span>
+      </div>
+      <div class="confidence-bar">
+        <div class="confidence-fill" id="confidenceFill" style="width: 0%"></div>
+      </div>
+    </div>
+    
+    <div class="actions-section">
+      <button class="btn btn-primary" id="btnTrainModel">
+        <span class="btn-icon">🎓</span>
+        <span>Train Baseline</span>
+      </button>
+    </div>
+    
+    <div class="settings-section">
+      <div class="setting-row">
+        <label for="enableMonitoring">Enable Monitoring</label>
+        <label class="switch">
+          <input type="checkbox" id="enableMonitoring" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      
+      <div class="setting-row">
+        <label for="sensitivity">Sensitivity</label>
+        <select id="sensitivity">
+          <option value="low">Low (0.8+)</option>
+          <option value="medium" selected>Medium (0.65+)</option>
+          <option value="high">High (0.5+)</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <div class="version">v1.0.0</div>
+      <a href="#" id="btnSettings" class="settings-link">⚙️ Settings</a>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

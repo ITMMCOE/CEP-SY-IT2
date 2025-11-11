@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session Ended - Behavioral Authentication</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 700px;
+      padding: 60px 50px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .icon {
+      font-size: 100px;
+      margin-bottom: 30px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    h1 {
+      color: #d32f2f;
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    p {
+      color: #666;
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+    
+    .security-notice {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    
+    .security-notice h3 {
+      color: #333;
+      font-size: 18px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .security-notice ul {
+      list-style: none;
+      text-align: left;
+      color: #555;
+      font-size: 15px;
+    }
+    
+    .security-notice li {
+      padding: 10px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .security-notice li:last-child {
+      border-bottom: none;
+    }
+    
+    .security-notice li::before {
+      content: "✓";
+      color: #4CAF50;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    .alert-box {
+      background: #fff3cd;
+      border-left: 5px solid #ff9800;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+    
+    .alert-box p {
+      color: #856404;
+      font-size: 15px;
+      margin: 0;
+    }
+    
+    .btn-container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    .btn {
+      padding: 14px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #1976d2, #1565c0);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .timestamp {
+      margin-top: 30px;
+      color: #999;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">🔒</div>
+    <h1>Session Terminated</h1>
+    <p>
+      For your security, this browsing session has been terminated due to 
+      detected unauthorized access patterns.
+    </p>
+    
+    <div class="security-notice">
+      <h3>
+        <span>🛡️</span>
+        Security Actions Taken
+      </h3>
+      <ul>
+        <li>All browser tabs have been closed</li>
+        <li>Browsing history has been cleared</li>
+        <li>Cookies and cached data removed</li>
+        <li>Stored passwords and form data cleared</li>
+        <li>Active sessions terminated</li>
+      </ul>
+    </div>
+    
+    <div class="alert-box">
+      <p>
+        <strong>📧 Security Alert Sent:</strong> 
+        An encrypted notification has been sent to your registered email address 
+        with details about this security event.
+      </p>
+    </div>
+    
+    <div class="btn-container">
+      <button class="btn btn-primary" onclick="location.href='https://google.com'">
+        Start New Session
+      </button>
+      <button class="btn btn-secondary" onclick="chrome.runtime.openOptionsPage()">
+        Extension Settings
+      </button>
+    </div>
+    
+    <div class="timestamp">
+      Terminated at: <span id="timestamp"></span>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('timestamp').textContent = new Date().toLocaleString();
+  </script>
+</body>
+</html>

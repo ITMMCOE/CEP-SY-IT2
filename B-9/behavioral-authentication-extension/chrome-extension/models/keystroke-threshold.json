@@ -1,0 +1,62 @@
+{
+  "modelInfo": {
+    "name": "Keystroke Dynamics Model",
+    "type": "Generalized Linear Model",
+    "accuracy": 0.705,
+    "trainingDate": "2025-01-28",
+    "features": 34,
+    "users": 51,
+    "trainingSize": 20400
+  },
+  "thresholds": {
+    "anomalyThreshold": 0.65,
+    "criticalThreshold": 0.85,
+    "confidenceMin": 0.50
+  },
+  "features": {
+    "avgHoldTime": {
+      "mean": 0.095,
+      "std": 0.032,
+      "min": 0.05,
+      "max": 0.25,
+      "weight": 0.25
+    },
+    "avgFlightTime": {
+      "mean": 0.142,
+      "std": 0.048,
+      "min": 0.08,
+      "max": 0.30,
+      "weight": 0.25
+    },
+    "typingSpeed": {
+      "mean": 42.5,
+      "std": 12.3,
+      "min": 20.0,
+      "max": 80.0,
+      "weight": 0.20
+    },
+    "errorRate": {
+      "mean": 0.082,
+      "std": 0.035,
+      "min": 0.0,
+      "max": 0.25,
+      "weight": 0.15
+    },
+    "rhythmVariability": {
+      "mean": 0.165,
+      "std": 0.055,
+      "min": 0.05,
+      "max": 0.35,
+      "weight": 0.15
+    }
+  },
+  "normalization": {
+    "method": "z-score",
+    "scaleRange": [0, 1]
+  },
+  "inference": {
+    "minSamplesRequired": 50,
+    "adaptiveLearningRate": 0.1,
+    "baselineUpdateInterval": 100
+  }
+}

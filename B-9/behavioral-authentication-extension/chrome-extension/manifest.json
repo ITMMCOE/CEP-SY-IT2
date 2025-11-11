@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Behavioral Authentication Shield",
+  "version": "1.0.0",
+  "description": "Continuous behavioral biometric authentication using keystroke and mouse dynamics with AI-powered anomaly detection",
+  "author": "Sharvil Mahajan",
+  
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "webRequest",
+    "alarms",
+    "notifications"
+  ],
+  
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "content/behavior-tracker.js",
+        "content/session-controller.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Behavioral Authentication Status"
+  },
+  
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "alert/security-alert.html",
+        "alert/security-alert.css",
+        "models/*.json"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

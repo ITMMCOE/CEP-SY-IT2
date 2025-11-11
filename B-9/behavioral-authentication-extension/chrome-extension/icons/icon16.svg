@@ -1,0 +1,5 @@
+<!-- Placeholder Icon 16x16 (SVG) -->
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <rect width="16" height="16" rx="3" fill="#1976d2"/>
+  <path d="M8 2C5.5 2 4 3.5 4 5.5V7C4 7.5 3.5 8 3 8V12C3 12.5 3.5 13 4 13H12C12.5 13 13 12.5 13 12V8C12.5 8 12 7.5 12 7V5.5C12 3.5 10.5 2 8 2ZM8 3C9.9 3 11 4.1 11 5.5V7H5V5.5C5 4.1 6.1 3 8 3ZM8 9C8.5 9 9 9.5 9 10C9 10.5 8.5 11 8 11C7.5 11 7 10.5 7 10C7 9.5 7.5 9 8 9Z" fill="white"/>
+</svg>
