@@ -1,5 +1,7 @@
 # 🧶 Yarn Yantra E-commerce Platform
 
+Website URL: https://yarnyantra.vercel.app
+
 Project Summary
 
 Yarn Yantra is the digital storefront for a handmade crochet and yarn product brand. This project focuses on delivering a cozy, engaging, and mobile-first e-commerce experience while supporting a non-standard manual payment flow (UPI verification).
