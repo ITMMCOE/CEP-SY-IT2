@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Learning Stock Market Analysis</title>
+
+<!-- Font & Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    /* ---------- GLOBAL ---------- */
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        background: #e8f0f8;
+        color: #333;
+        scroll-behavior: smooth;
+    }
+
+    h1, h2, h3 {
+        color: #0d2c54;
+    }
+
+    a { text-decoration: none; }
+
+    .container {
+        width: 90%;
+        margin: auto;
+        max-width: 1200px;
+    }
+
+    /* ---------- HEADER ---------- */
+    .main-header {
+        background: linear-gradient(90deg, #011225, #062a33);
+        padding: 15px 0;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .nav-content { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 700; font-size: 22px; }
+    .main-nav ul { display: flex; list-style: none; margin: 0; padding: 0; }
+    .main-nav ul li { margin: 0 15px; }
+    .main-nav a { color: white; font-weight: 500; transition: 0.3s; }
+    .main-nav a:hover { color: #ffe600; }
+    .register-btn {
+        background: #ffe600;
+        color: #233952;
+        padding: 10px 18px;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .register-btn:hover { background: #fff; }
+
+    /* ---------- HERO SECTION ---------- */
+    .hero-section {
+        position: relative;
+        color: white;
+        padding: 100px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(to right, #005c97, #06074a);
+    }
+
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: url('https://images.unsplash.com/photo-1581091215365-d35f26edc891?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        opacity: 0.15;
+        z-index: 0;
+    }
+
+    .hero-layout {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        z-index: 1;
+    }
+
+    .hero-text { max-width: 550px; }
+    .hero-text h1 { font-size: 48px; line-height: 1.2; }
+    .hero-buttons a {
+        display: inline-block;
+        padding: 12px 25px;
+        margin-right: 10px;
+        border-radius: 25px;
+        color: #fff;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .primary-btn { background: #ffe600; color: #002b5c; }
+    .secondary-btn { border: 2px solid white; }
+    .hero-image-placeholder img {
+        border-radius: 15px;
+        width: 450px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    /* ---------- FEATURES ---------- */
+    .features-section {
+        background: #fff;
+        padding: 70px 0;
+    }
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+    }
+    .feature-item {
+        background: #f0f8ff;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
+    .feature-item:hover { transform: translateY(-5px); }
+    .icon-box i { font-size: 40px; color: #007bff; margin-bottom: 15px; }
+
+    /* ---------- LIVE VIDEO ---------- */
+    .live-video {
+        background: linear-gradient(135deg, #002b5c, #00b4db);
+        color: white;
+        text-align: center;
+        padding: 80px 0;
+    }
+    .live-video iframe {
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+    .join-btn {
+        background: #ffe600;
+        color: #002b5c;
+        padding: 12px 25px;
+        border-radius: 30px;
+        display: inline-block;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    /* ---------- LIVE CHARTS ---------- */
+    .charts-section {
+        background: #f4f8fb;
+        padding: 80px 0;
+        text-align: center;
+    }
+    .chart-container {
+        width: 90%;
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* ---------- STOCK UPDATES ---------- */
+    .live-stocks {
+        background: #fff;
+        text-align: center;
+        padding: 60px 0;
+    }
+    .stock-ticker marquee {
+        font-size: 18px;
+        color: #002b5c;
+        font-weight: 600;
+    }
+
+    /* ---------- ACHIEVEMENTS ---------- */
+    .achievements {
+        background: #f4f8fb;
+        text-align: center;
+        padding: 70px 0;
+    }
+    .achievements-grid {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+    .achievement-item {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        width: 250px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .achievement-item i { font-size: 40px; color: #00b4db; }
+
+    /* ---------- COMMUNITY ---------- */
+    .community {
+        background: linear-gradient(135deg, #00b4db, #0083b0);
+        color: white;
+        text-align: center;
+        padding: 80px 0;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: #002b5c;
+        color: white;
+        text-align: center;
+        padding: 25px 0;
+        margin-top: 0;
+    }
+    footer i { margin: 0 8px; color: #ffe600; }
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d6efd">
+</head>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('msg') === 'login_success') {
+        alert('Successfully logged in!');
+    } else if (params.get('msg') === 'signup_success') {
+        alert('Account created successfully!');
+    }
+});
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('Service Worker Registered'));
+  }
+</script>
+<body>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+if (params.get('msg') === 'welcome') {
+    alert("Welcome! You are now logged in.");
+}
+</script>
+
+<!-- Header -->
+<header class="main-header">
+    <div class="container nav-content">
+        <div class="logo">📊 E-LEARNING STOCK MARKET</div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="cources.html">Courses</a></li>
+                <li><a href="toturial.html">Tutorials</a></li>
+                <li><a href="dashboard.html">dashboard</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="signup.html" class="register-btn">Register Now</a>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container hero-layout">
+        <div class="hero-text">
+            <h1>Rank Higher, <br> Shine Brighter.</h1>
+            <p>Empowering beginners and professionals to master the stock market with expert-driven learning.</p>
+            <div class="hero-buttons">
+                <a href="start_learning.html" class="primary-btn">Start Learning</a>
+                <a href="#" class="secondary-btn">Watch Demo</a>
+            </div>
+        </div>
+        <div class="hero-image-placeholder">
+            <img src="https://t4.ftcdn.net/jpg/02/99/97/81/360_F_299978128_VrSxbrMdiTHh4Zx51SGnpMtI24SZs8MD.jpg">
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features-section">
+    <div class="container features-grid">
+        <div class="feature-item">
+            <div class="icon-box"><i class="fas fa-user-graduate"></i></div>
+            <h3>Personalized Learning</h3>
+            <p>Customized content designed to match your level and trading goals.</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+            <h3>Real-Time Analytics</h3>
+            <p>Interactive dashboards to track your progress and performance.</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="icon-box"><i class="fas fa-bullhorn"></i></div>
+            <h3>Expert Mentorship</h3>
+            <p>Weekly sessions with market professionals and financial mentors.</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="icon-box"><i class="fas fa-certificate"></i></div>
+            <h3>Certified Courses</h3>
+            <p>Get certified and stand out in your financial career path.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Live Charts Section -->
+<section class="charts-section">
+    <h2>📈 Stock Market Trends</h2>
+    <div class="chart-container">
+        <canvas id="niftyChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="sensexChart"></canvas>
+    </div>
+</section>
+
+
+<!-- Live Market Updates -->
+<section class="live-stocks">
+    <h2>📊 Live Market Updates</h2>
+    <div class="stock-ticker">
+        <marquee behavior="scroll" direction="left" scrollamount="7">
+            <strong>NIFTY 50:</strong> 23,570 ▲ +0.45% &nbsp;&nbsp;
+            <strong>SENSEX:</strong> 78,120 ▲ +0.62% &nbsp;&nbsp;
+            <strong>INFY:</strong> ₹1,640 ▲ +0.35% &nbsp;&nbsp;
+            <strong>TCS:</strong> ₹3,850 ▼ -0.22% &nbsp;&nbsp;
+            <strong>RELIANCE:</strong> ₹2,630 ▲ +0.18%
+        </marquee>
+    </div>
+</section>
+<!-- What is Share Market Section -->
+<section class="share-market-section" id="share-market" style="padding: 80px 0; background: #f4f8fb; text-align: center;">
+    <div class="container">
+        <h2 style="margin-bottom: 50px;">📊 What is the Share Market?</h2>
+        <div class="share-market-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
+
+            <!-- Main Description Circle -->
+            <div class="circle-item" style="background: #ffcc00; width: 280px; height: 280px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                <h3 style="margin-bottom: 15px;">The Share Market</h3>
+                <p style="font-size: 14px;">The share market (stock market) is where buyers and sellers trade company shares, helping businesses raise capital and investors earn returns.</p>
+            </div>
+
+            <!-- Market Trends Circle -->
+            <div class="circle-item" style="background: #00b4db; color: white; width: 280px; height: 280px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                <i class="fas fa-chart-line" style="font-size: 40px; margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Market Trends</h4>
+                <p style="font-size: 13px;">Track sector & stock performance to make informed decisions.</p>
+            </div>
+
+            <!-- Investment Opportunities Circle -->
+            <div class="circle-item" style="background: #ff6f61; color: white; width: 280px; height: 280px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                <i class="fas fa-hand-holding-usd" style="font-size: 40px; margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Investment Opportunities</h4>
+                <p style="font-size: 13px;">Learn how to pick stocks matching your goals and risk appetite.</p>
+            </div>
+
+            <!-- Risk & Reward Circle -->
+            <div class="circle-item" style="background: #28a745; color: white; width: 280px; height: 280px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                <i class="fas fa-balance-scale" style="font-size: 40px; margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Risk & Reward</h4>
+                <p style="font-size: 13px;">Understand the balance between potential gains and risks in trading.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Responsive Adjustments -->
+<style>
+@media (max-width: 1024px) {
+    .share-market-grid {
+        gap: 30px;
+    }
+}
+@media (max-width: 768px) {
+    .share-market-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Glowing Card Effect */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(0, 255, 255, 0.4);
+}
+
+/* Live Market Ticker Styling */
+marquee { font-size:18px; font-weight:600; }
+
+</style>
+
+            
+            
+            
+
+
+<!-- Achievements -->
+<section class="achievements">
+    <div class="container">
+        <h2>Our Learners’ Achievements</h2>
+        <div class="achievements-grid">
+            <div class="achievement-item">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>10,000+</h3>
+                <p>Students Trained</p>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>95%</h3>
+                <p>Improved Trading Skills</p>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-trophy"></i>
+                <h3>Top Rated</h3>
+                <p>In Learning Experience</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Community -->
+<section class="community">
+    <div class="container">
+        <h2>Join Our Global Trading Community</h2>
+        <p>Connect, share, and grow with learners, mentors, and investors worldwide.</p>
+        <a href="#" class="join-btn">Join Our Community</a>
+    </div>
+</section>
+<!-- ==================================== -->
+<!-- NEW ADVANCED FEATURES SECTION -->
+<!-- ==================================== -->
+<section class="advanced-features" style="background:#ffffff; padding:80px 0; text-align:center;">
+  <div class="container">
+
+    <h2 style="color:#0d2c54; margin-bottom:40px;">🚀 Smart Tools for Smarter Learning</h2>
+
+    <!-- AI Course Recommendation -->
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; margin-bottom:60px;">
+      <div style="background:#f4f8fb; border-radius:20px; padding:30px; width:320px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+        <i class="fas fa-robot" style="font-size:40px; color:#007bff; margin-bottom:10px;"></i>
+        <h3>AI Learning Advisor</h3>
+        <p id="ai-recommendation">Finding the best course for you...</p>
+        <button onclick="generateRecommendation()" style="background:#ffe600; border:none; padding:10px 20px; border-radius:20px; font-weight:600; cursor:pointer;">Get Recommendation</button>
+      </div>
+
+      <!-- Daily Stock Tip -->
+      <div style="background:#eaf7ff; border-radius:20px; padding:30px; width:320px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+        <i class="fas fa-lightbulb" style="font-size:40px; color:#28a745; margin-bottom:10px;"></i>
+        <h3>Today's Market Insight</h3>
+        <p id="daily-tip">Loading tip...</p>
+        <button onclick="generateStockTip()" style="background:#00b4db; color:white; border:none; padding:10px 20px; border-radius:20px; font-weight:600; cursor:pointer;">Refresh Tip</button>
+      </div>
+    </div>
+
+
+    
+    <!-- Testimonials Carousel -->
+    <div style="max-width:900px; margin:auto; background:#f0f8ff; border-radius:20px; padding:40px; box-shadow:0 5px 15px rgba(0,0,0,0.1); position:relative;">
+      <i class="fas fa-quote-left" style="font-size:30px; color:#00b4db; position:absolute; top:20px; left:30px;"></i>
+      <p id="testimonial" style="font-size:18px; font-style:italic; margin:20px 0;">"This platform completely changed how I understand stock trading!"</p>
+      <h4 id="testimonial-author" style="color:#002b5c;">– Arjun Mehta, Trader</h4>
+    </div>
+
+    <!-- Newsletter Signup -->
+    <div style="margin-top:60px;">
+      <h3 style="color:#0d2c54;">📧 Join Our Weekly Market Digest</h3>
+      <p>Get expert tips, strategy breakdowns, and live analysis straight to your inbox!</p>
+      <form style="margin-top:20px;">
+        <input type="email" placeholder="Enter your email" style="padding:12px 15px; border-radius:25px; border:1px solid #ccc; width:260px;">
+        <button type="submit" style="background:#ffe600; border:none; padding:12px 25px; border-radius:25px; font-weight:600; color:#002b5c; margin-left:10px; cursor:pointer;">Subscribe</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- Footer -->
+<footer>
+    
+    <div>
+        <i class="fab fa-facebook"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-linkedin"></i>
+    </div>
+</footer>
+
+<script>
+    // NIFTY Chart
+    const ctxNifty = document.getElementById('niftyChart').getContext('2d');
+    new Chart(ctxNifty, {
+        type: 'line',
+        data: {
+            labels: ['Mon','Tue','Wed','Thu','Fri'],
+            datasets: [{
+                label: 'NIFTY 50',
+                data: [23400, 23520, 23350, 23600, 23750],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0,123,255,0.2)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { display: true } } }
+    });
+
+    // SENSEX Chart
+    const ctxSensex = document.getElementById('sensexChart').getContext('2d');
+    new Chart(ctxSensex, {
+        type: 'line',
+        data: {
+            labels: ['Mon','Tue','Wed','Thu','Fri'],
+            datasets: [{
+                label: 'SENSEX',
+                data: [78000, 78150, 77900, 78250, 78300],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40,167,69,0.2)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { display: true } } }
+    });
+</script>
+
