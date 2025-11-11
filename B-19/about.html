@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Stock Market Modules</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #eef4fb;
+    color: #333;
+    padding-top: 70px;
+}
+
+/* Navbar */
+.navbar { background: #0d2c54; }
+.navbar .navbar-brand, .navbar .nav-link { color: #fff; font-weight: 600; }
+.navbar .nav-link:hover { color: #437bc5; }
+.navbar .nav-link.active { color: #ffd200; }
+
+/* Page Title */
+h1 {
+    text-align: center;
+    color: #0d2c54;
+    margin: 40px 0;
+    font-size: 2.5rem;
+}
+
+/* Module Cards */
+.module-card {
+    border-radius: 20px;
+    transition: transform 0.4s, box-shadow 0.4s;
+    cursor: pointer;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+.module-card span { z-index: 2; }
+.module-card i { font-size: 2.2em; margin-bottom: 10px; z-index: 2; }
+.module-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #6a11cb, #021739);
+    z-index: 1;
+    transition: background 0.5s;
+}
+.module-card:hover {
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 18px 30px rgba(0,0,0,0.25);
+}
+
+/* Light Blue gradients for cards */
+.module-card:nth-child(1)::before { background: linear-gradient(135deg, #4e79cb, #B0E0E6); } /* Basics */
+.module-card:nth-child(2)::before { background: linear-gradient(135deg, #A7C7E7, #D0E7F9); } /* Glossary */
+.module-card:nth-child(3)::before { background: linear-gradient(135deg, #ADD8E6, #87CEFA); } /* Analysis */
+.module-card:nth-child(4)::before { background: linear-gradient(135deg, #B0E0E6, #AFEEEE); } /* Stock Risk */
+.module-card:nth-child(5)::before { background: linear-gradient(135deg, #87CEFA, #B0E0E6); } /* Derivatives */
+.module-card:nth-child(6)::before { background: linear-gradient(135deg, #AEEEEE, #ADD8E6); } /* Mutual Funds */
+
+/* Module Info Sections */
+.module-info {
+    background: #fff;
+    padding: 30px;
+    border-radius: 25px;
+    margin-top: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: none;
+    animation: fadeIn 0.6s ease;
+}
+.module-info.active { display: block; }
+.module-info h2 {
+    font-size: 2rem;
+    color: #0d2c54;
+    margin-bottom: 20px;
+    position: relative;
+}
+.module-info h2::before { content: "["; color: #43cea2; position: absolute; left: -25px; font-size: 2.5rem; }
+.module-info h2::after { content: "]"; color: #43cea2; position: absolute; right: -25px; font-size: 2.5rem; }
+.module-info p, .module-info ul { font-size: 1.1em; line-height: 1.7; margin-bottom: 12px; }
+.module-info ul li { margin-bottom: 8px; }
+
+@keyframes fadeIn {
+    0% {opacity: 0; transform: translateY(20px);}
+    100% {opacity: 1; transform: translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Stock Market Learning</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"><i class="fas fa-bars" style="color:white;"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="toturial.html">Tutorials</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+    <h1>About Stock Market Modules</h1>
+
+    <!-- Module Cards -->
+    <div class="row g-4">
+        <div class="col-md-4"><div class="module-card" onclick="showModule('basics')"><i class="fas fa-book"></i><span>Basics</span></div></div>
+        <div class="col-md-4"><div class="module-card" onclick="showModule('glossary')"><i class="fas fa-book-open"></i><span>Glossary</span></div></div>
+        <div class="col-md-4"><div class="module-card" onclick="showModule('analysis')"><i class="fas fa-chart-line"></i><span>Analysis</span></div></div>
+        <div class="col-md-4"><div class="module-card" onclick="showModule('stockRisk')"><i class="fas fa-exclamation-triangle"></i><span>Stock Risk</span></div></div>
+        <div class="col-md-4"><div class="module-card" onclick="showModule('derivatives')"><i class="fas fa-handshake"></i><span>Derivatives</span></div></div>
+        <div class="col-md-4"><div class="module-card" onclick="showModule('mutualFunds')"><i class="fas fa-piggy-bank"></i><span>Mutual Funds</span></div></div>
+    </div>
+
+    <!-- Module Info Sections -->
+    <div id="basics" class="module-info">
+        <h2>Basics</h2>
+        <p>Understand stock market fundamentals:</p>
+        <ul>
+            <li>Stock exchanges: BSE, NSE.</li>
+            <li>Types of stocks: Common, Preferred.</li>
+            <li>Market participants: Investors, Brokers, Institutions.</li>
+            <li>Indices: NIFTY 50, Sensex.</li>
+        </ul>
+        <p><strong>Example:</strong> Buying 10 shares of Infosys at market price.</p>
+        <p><strong>Key Formulas:</strong></p>
+        <ul>
+            <li>Market Capitalization = Share Price × Total Shares</li>
+            <li>EPS = Net Profit ÷ Number of Outstanding Shares</li>
+        </ul>
+    </div>
+
+    <div id="glossary" class="module-info">
+        <h2>Glossary</h2>
+        <ul>
+            <li><strong>Market Capitalization:</strong> Total value of company shares.</li>
+            <li><strong>P/E Ratio:</strong> Price to Earnings = Share Price ÷ EPS</li>
+            <li><strong>Dividends:</strong> Portion of profit shared with shareholders.</li>
+            <li><strong>Liquidity:</strong> Ability to quickly buy/sell stocks without affecting price.</li>
+        </ul>
+    </div>
+
+    <div id="analysis" class="module-info">
+        <h2>Analysis</h2>
+        <p>Two main approaches:</p>
+        <ul>
+            <li><strong>Technical Analysis:</strong> Study of past price movements and patterns.</li>
+            <li><strong>Fundamental Analysis:</strong> Evaluates financial health using balance sheet, income statement, cash flow.</li>
+        </ul>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+            <li>Moving Average (MA) = Sum of Closing Prices ÷ Number of Periods</li>
+            <li>Return on Equity (ROE) = Net Profit ÷ Shareholder Equity × 100%</li>
+            <li>P/E Ratio = Market Price per Share ÷ EPS</li>
+        </ul>
+    </div>
+
+    <div id="stockRisk" class="module-info">
+        <h2>Stock Risk</h2>
+        <ul>
+            <li>Systematic Risk: Market-wide risk affecting all stocks.</li>
+            <li>Unsystematic Risk: Company-specific risk.</li>
+            <li>Volatility measures how much stock price fluctuates.</li>
+        </ul>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+            <li>Portfolio Risk (σp) = √(w1²σ1² + w2²σ2² + 2w1w2Cov(1,2))</li>
+            <li>Sharpe Ratio = (Return of Portfolio − Risk-Free Rate) ÷ Portfolio Std. Dev.</li>
+        </ul>
+    </div>
+
+    <div id="derivatives" class="module-info">
+        <h2>Derivatives</h2>
+        <p>Financial instruments derived from underlying assets:</p>
+        <ul>
+            <li>Futures: Obligation to buy/sell at predetermined price.</li>
+            <li>Options: Right, not obligation, to buy/sell.</li>
+            <li>Used for hedging or speculation.</li>
+        </ul>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+            <li>Call Option Payoff = Max(0, Stock Price − Strike Price)</li>
+            <li>Put Option Payoff = Max(0, Strike Price − Stock Price)</li>
+        </ul>
+    </div>
+
+    <div id="mutualFunds" class="module-info">
+        <h2>Mutual Funds</h2>
+        <ul>
+            <li>Types: Equity, Debt, Hybrid funds.</li>
+            <li>NAV (Net Asset Value) = (Total Assets − Total Liabilities) ÷ Number of Units</li>
+            <li>Diversification reduces risk.</li>
+            <li>SIP (Systematic Investment Plan) helps in long-term wealth creation.</li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+function showModule(moduleId) {
+    const modules = document.querySelectorAll('.module-info');
+    modules.forEach(m => m.classList.remove('active'));
+    document.getElementById(moduleId).classList.add('active');
+    document.getElementById(moduleId).scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html> <html lang="en">
+     <head> <meta charset="UTF-8">
+      
+         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+         <title>Contact Us - Stock Market Institute</title> <!-- Bootstrap & Font Awesome --> 
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> 
+          <style> 
+          body {
+ font-family: 'Poppins', sans-serif; 
+ background-color: #f4f8fb; 
+  color: #002b5c; } header {
+  background: linear-gradient(90deg, #004b8d, #007bff); 
+ color: white; 
+ padding: 60px 0 40px;
+ text-align: center;
+ border-bottom-left-radius: 50px; 
+ border-bottom-right-radius: 50px; } header h1 { 
+font-weight: 700; 
+font-size: 2.5rem;
+ }
+ header p {
+font-size: 1.1rem;
+color: #eaf4ff; } .info-card {
+background: #ffffff; 
+border-radius: 15px; 
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+padding: 25px; 
+transition: all 0.3s ease;
+height: 100%; } .info-card:hover { 
+transform: translateY(-6px);
+ box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15); } .info-card i { 
+font-size: 32px;
+ color: #007bff;
+ margin-bottom: 15px; } .form-section {
+ background: #ffffff;
+ border-radius: 15px; 
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+ padding: 40px;
+ margin-top: 50px; } .form-control { 
+ border-radius: 10px;
+border: 1px solid #ccc;
+ box-shadow: none; } .form-control:focus { 
+ border-color: #007bff; 
+ box-shadow: 0 0 5px rgba(0,123,255,0.2); } .btn-custom {
+ background: #007bff; 
+ color: white;
+ border-radius: 30px;
+  font-weight: 600; 
+  transition: background 0.3s ease; } .btn-custom:hover {
+   background: #0056b3; } .map iframe {
+    width: 100%; height: 350px;
+    border: 0; border-radius: 15px; } footer {
+    background: #f1f7fc; margin-top: 50px;
+      padding: 40px; border-top: 2px solid #e3eef7; } footer h5 {
+     color: #013A63; font-weight: 600;
+      margin-bottom: 15px; } footer ul { 
+      list-style: none; 
+     padding: 0; } footer ul li { 
+      margin-bottom: 10px; } footer ul li i {
+      color: #007bff;
+      margin-right: 10px; }
+      </style>
+     </head>
+     <body> 
+
+      <!-- Header -->                                     
+<header class="main-header">
+    <div class="container nav-content">
+        <div class="logo">📊 E-LEARNING STOCK MARKET</div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="cources.html">Courses</a></li>
+                <li><a href="toturial.html">Tutorials</a></li>
+                <li><a href="dashboard.html">dashboard</a></li>
+            </ul>
+        </nav>
+        
+</header>
+<style>
+      .main-header {
+        background: linear-gradient(90deg, #011225, #062a33);
+        padding: 15px 0;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .nav-content { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 700; font-size: 22px; }
+    .main-nav ul { display: flex; list-style: none; margin: 0; padding: 0; }
+    .main-nav ul li { margin: 0 15px; }
+    .main-nav a { color: white; font-weight: 500; transition: 0.3s; }
+    .main-nav a:hover { color: #ffe600; }
+    .register-btn {
+        background: #ffe600;
+        color: #233952;
+        padding: 10px 18px;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .register-btn:hover { background: #fff; }
+
+</style>
+
+ <!-- Header -->
+     <header> 
+        <h1>Contact Stock Market Institute</h1> <p>Your trusted partner in financial education and trading excellence.</p> </header> <div class="container my-5"></div><!-- Info Cards -->
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="info-card text-center p-4">
+      <i class="fas fa-building"></i>
+      <h5>Headquarters</h5>
+      <p>karvenagar,pune, India<br>PIN 400041</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="info-card text-center p-4">
+      <i class="fas fa-phone-alt"></i>
+      <h5>Customer Care</h5>
+      <p>📞 +91 98765 43210<br>✉️ support@stockinstitute.com</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="info-card text-center p-4">
+      <i class="fas fa-clock"></i>
+      <h5>Working Hours</h5>
+      <p>Mon - Fri: 9 AM - 6 PM<br>Sat: 10 AM - 3 PM</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Form -->
+<div class="form-section">
+  <h4 class="mb-4"><i class="fas fa-envelope text-primary"></i> Send Us a Message</h4>
+  <form id="contactForm" action="contact_process.php" method="POST">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Full Name</label>
+        <input type="text" name="name" class="form-control" required>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" required>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Phone</label>
+        <input type="text" name="phone" class="form-control">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Subject</label>
+        <input type="text" name="subject" class="form-control" required>
+      </div>
+      <div class="col-12">
+        <label class="form-label">Message</label>
+        <textarea name="message" rows="5" class="form-control" required></textarea>
+      </div>
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-custom px-4"><i class="fas fa-paper-plane"></i> Send Message</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Market Info Footer -->
+<footer class="mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <h5><i class="fas fa-chart-line"></i> Market Support</h5>
+      <ul>
+        <li><i class="fas fa-envelope"></i> trading@stockinstitute.com</li>
+        <li><i class="fas fa-phone"></i> +91 90000 45678</li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h5><i class="fas fa-users"></i> Investor Relations</h5>
+      <ul>
+        <li><i class="fas fa-envelope"></i> ir@stockinstitute.com</li>
+        <li><i class="fas fa-briefcase"></i> partnerships@stockinstitute.com</li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h5><i class="fas fa-newspaper"></i> Media & PR</h5>
+      <ul>
+        <li><i class="fas fa-envelope"></i> media@stockinstitute.com</li>
+        <li><i class="fas fa-phone"></i> +91 90210 98765</li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- Map -->
+<div class="map mt-4">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.0998330469537!2d72.84238387497686!3d19.188389482033904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b629d2c32a29%3A0x1bffbe9139a1d2f4!2sBandra%20Kurla%20Complex!5e0!3m2!1sen!2sin!4v1699348030499!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+</div>
+</div> <!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contactForm");
+  const phoneInput = form.querySelector('input[name="phone"]');
+
+  // Allow only digits in phone input
+  phoneInput.addEventListener("input", function () {
+    this.value = this.value.replace(/[^0-9]/g, ''); // remove non-digits
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const email = form.querySelector('input[name="email"]').value.trim();
+    const phone = form.querySelector('input[name="phone"]').value.trim();
+    const subject = form.querySelector('input[name="subject"]').value.trim();
+    const message = form.querySelector('textarea[name="message"]').value.trim();
+
+    // ✅ Phone validation
+    const phoneRegex = /^[6-9][0-9]{9}$/;
+    if (!phoneRegex.test(phone)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Phone Number",
+        text: "Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9.",
+      });
+      return;
+    }
+
+    // ✅ Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Email",
+        text: "Please enter a valid email address (e.g., name@example.com).",
+      });
+      return;
+    }
+
+    // ✅ Submit to backend via AJAX
+    fetch("contact_process.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ name, email, phone, subject, message })
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "Message Sent!",
+          text: "Thank you for contacting us. We'll get back to you soon.",
+          timer: 2500,
+          showConfirmButton: false
+        });
+        form.reset();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: result.message || "Something went wrong. Please try again."
+        });
+      }
+    })
+    
+  });
+});
+</script>
+ 
+</body> 
+</html>
