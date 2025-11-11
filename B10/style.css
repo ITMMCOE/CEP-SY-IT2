@@ -1,0 +1,465 @@
+/* =========================================================
+   AI Scholarship Finder - Advanced Stylesheet
+   Author: You
+   Updated: 2025
+   ========================================================= */
+
+/* ---------- Root Variables ---------- */
+:root {
+  --primary: #4b6bfb;
+  --accent: #ffd700;
+  --secondary: #6ee7b7;
+  --dark-bg: #0f172a;
+  --light-bg: #ffffff;
+  --text-dark: #1f2937;
+  --text-light: #f3f4f6;
+  --glass: rgba(255, 255, 255, 0.15);
+  --transition: 0.4s ease-in-out;
+}
+
+/* ---------- Base Styles ---------- */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background: var(--light-bg);
+  color: var(--text-dark);
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ---------- Header ---------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all var(--transition);
+}
+
+header.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.logo span {
+  color: var(--text-dark);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.8rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  position: relative;
+  transition: color var(--transition);
+}
+
+nav a.active,
+nav a:hover {
+  color: var(--primary);
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.login,
+.signup {
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.login {
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+}
+
+.login:hover {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(75, 107, 251, 0.4);
+}
+
+.signup {
+  background: var(--primary);
+  color: #fff;
+}
+
+.signup:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  box-shadow: 0 0 15px rgba(75, 107, 251, 0.4);
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+/* ---------- Dark Mode ---------- */
+.dark-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--text-dark);
+  transition: color var(--transition), transform 0.4s;
+}
+
+.dark-toggle:hover {
+  transform: rotate(20deg);
+}
+
+body.dark {
+  background: var(--dark-bg);
+  color: var(--text-light);
+}
+
+body.dark header {
+  background: rgba(15, 23, 42, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .dark-toggle {
+  color: var(--text-light);
+}
+
+/* ---------- Hero Section ---------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(120deg, #4b6bfb, #6ee7b7);
+  color: #fff;
+  padding: 2rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1), transparent 60%);
+  animation: pulse 6s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(1.1); opacity: 0.7; }
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 1rem 0;
+  animation: fadeInUp 1.2s ease both;
+}
+
+.hero .highlight {
+  color: var(--accent);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.search-box {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.search-box input {
+  padding: 0.9rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+  min-width: 250px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-box button {
+  background: var(--accent);
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.search-box button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Section Base ---------- */
+section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.7s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  position: relative;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  margin: 0.5rem auto;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* ---------- Scholarship Finder Cards ---------- */
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.program-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.program-card i {
+  color: var(--primary);
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.program-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 30px rgba(75, 107, 251, 0.2);
+}
+
+body.dark .program-card {
+  background: rgba(30, 41, 59, 0.9);
+}
+
+/* ---------- Chatbot ---------- */
+.chatbot-modal {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  width: 360px;
+  height: 480px;
+  border-radius: 18px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 1000;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+body.dark .chatbot-modal {
+  background: #1e293b;
+  color: #fff;
+}
+
+.chatbot-modal header {
+  background: var(--primary);
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.chatbot-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+.chatbot-input input {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  outline: none;
+}
+
+.chatbot-input button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.chatbot-input button:hover {
+  background: var(--secondary);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  background: var(--primary);
+  color: #fff;
+  margin-top: 4rem;
+}
+
+.footer-logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.social-icons a {
+  color: #fff;
+  margin: 0 10px;
+  font-size: 1.3rem;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.social-icons a:hover {
+  transform: translateY(-3px);
+  opacity: 0.85;
+}
+
+/* ---------- Back to Top ---------- */
+#backToTop {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  background: var(--primary);
+  color: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+#backToTop:hover {
+  transform: scale(1.1);
+  background: var(--secondary);
+}
+
+#backToTop.show {
+  display: block;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: var(--light-bg);
+    border-radius: 10px;
+    width: 60%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+}

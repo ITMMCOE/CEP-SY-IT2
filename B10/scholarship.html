@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Scholarship Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9fafc;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #4a90e2;
+    }
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input, select, button {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #4a90e2;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #357abd;
+    }
+
+    #results {
+      margin-top: 20px;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 10px;
+      background: #fafafa;
+    }
+
+    .card h4 {
+      color: #4a90e2;
+      margin-bottom: 5px;
+    }
+
+    .logout-btn {
+      display: block;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+
+    .logout-btn button {
+      background: #e94e4e;
+      border: none;
+      padding: 8px 14px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .logout-btn button:hover {
+      background: #c43c3c;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logout-btn">
+      <button id="logoutBtn">Logout</button>
+    </div>
+
+    <h1>🎓 AI Scholarship Finder</h1>
+
+    <div class="form-section">
+      <label>Country:</label>
+      <input type="text" id="country" placeholder="e.g. USA, India">
+
+      <label>Field of Study:</label>
+      <input type="text" id="field" placeholder="e.g. Engineering, Medicine">
+
+      <label>Degree Level:</label>
+      <select id="degree">
+        <option value="">Select...</option>
+        <option value="undergraduate">Undergraduate</option>
+        <option value="masters">Masters</option>
+        <option value="phd">PhD</option>
+      </select>
+
+      <button id="findBtn">Find Scholarships</button>
+    </div>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    // Redirect if not logged in
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = localStorage.getItem("user");
+      if (!user) {
+        alert("Please login first!");
+        window.location.href = "login.html";
+        return;
+      }
+    });
+
+    // Logout functionality
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    });
+
+    // Sample scholarship dataset
+    const scholarships = [
+      { name: "Fulbright Scholarship", country: "India", field: "any", degree: "masters" },
+      { name: "Chevening Scholarship", country: "UK", field: "any", degree: "masters" },
+      { name: "DAAD Scholarship", country: "Germany", field: "engineering", degree: "phd" },
+      { name: "MEXT Scholarship", country: "Japan", field: "any", degree: "undergraduate" },
+      { name: "Inlaks Scholarship", country: "India", field: "Engineering", degree: "masters" },
+      { name: "Commonwealth Scholarship", country: "UK", field: "any", degree: "phd" },
+      { name: "Erasmus Mundus", country: "Europe", field: "science", degree: "masters" },
+      { name: "Aga Khan Foundation Scholarship", country: "Global", field: "any", degree: "masters" }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const findBtn = document.getElementById('findBtn');
+      const resultsDiv = document.getElementById('results');
+
+      findBtn.addEventListener('click', () => {
+        const country = document.getElementById('country').value.toLowerCase();
+        const field = document.getElementById('field').value.toLowerCase();
+        const degree = document.getElementById('degree').value.toLowerCase();
+
+        let matches = scholarships.filter(s => 
+          (s.country.toLowerCase() === country || country === "") &&
+          (s.field.toLowerCase() === field || s.field === "any" || field === "") &&
+          (s.degree.toLowerCase() === degree || degree === "")
+        );
+
+        // If all fields are blank → show 2–4 random demo scholarships
+        if (country === "" && field === "" && degree === "") {
+          const randomCount = Math.floor(Math.random() * 3) + 2; // 2–4
+          matches = scholarships.sort(() => 0.5 - Math.random()).slice(0, randomCount);
+        }
+
+        // Display results
+        resultsDiv.innerHTML = "";
+        if (matches.length > 0) {
+          resultsDiv.innerHTML = `<h3>Found ${matches.length} Scholarships:</h3>`;
+          matches.forEach(m => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+              <h4>${m.name}</h4>
+              <p><strong>Country:</strong> ${m.country}</p>
+              <p><strong>Field:</strong> ${m.field}</p>
+              <p><strong>Degree:</strong> ${m.degree}</p>
+            `;
+            resultsDiv.appendChild(card);
+          });
+        } else {
+          resultsDiv.innerHTML = "<p>No scholarships match your search. Try different filters.</p>";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
