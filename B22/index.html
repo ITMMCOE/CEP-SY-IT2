@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShareRide - Final Version</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Landing Page -->
+  <div id="landing-page-content" class="hidden">
+    <nav id="landing-navbar" class="navbar">
+      <div class="logo"><span class="car-emoji">R</span> ShareRide</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#" onclick="alert('About page placeholder')">About</a></li>
+          <li><a href="#" onclick="alert('Contact page placeholder')">Contact</a></li>
+        </ul>
+        <div class="auth-buttons">
+          <a href="#" class="login-btn" id="nav-login-btn">Login</a>
+          <a href="#" class="signup-btn" id="nav-signup-btn">Sign Up</a>
+        </div>
+      </nav>
+    </nav>
+
+    <main class="hero-section">
+      <div class="background-grid"></div>
+      <div class="glowing-path"></div>
+      <div class="glowing-path-2"></div>
+      <div class="glowing-car-placeholder"></div>
+      <div class="hero-content">
+        <h1>Ride Sharing</h1>
+        <p>Your convenient ride, anytime.</p>
+        <button class="hero-cta-button" id="hero-book-ride-btn">Book a Ride</button>
+
+        <div class="features-grid">
+          <div class="feature-card"><i class="fas fa-car-alt"></i><h3>Fast</h3></div>
+          <div class="feature-card"><i class="fas fa-shield-alt"></i><h3>Safe</h3></div>
+          <div class="feature-card"><i class="fas fa-user-check"></i><h3>Reliable</h3></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal-overlay" class="hidden">
+    <div class="auth-form-container">
+      <div id="login-view" class="auth-form-view">
+        <h2>Login</h2>
+        <form id="login-form" class="auth-modal-form styled-form">
+          <div class="form-group">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" placeholder="your.email@example.com" required>
+            <span class="error-message"></span>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        <p class="auth-toggle-link">Don't have an account? <a id="show-register-link" href="#">Register</a></p>
+      </div>
+
+      <div id="register-view" class="auth-form-view hidden">
+        <h2>Create Account</h2>
+        <form id="register-form" class="auth-modal-form styled-form" novalidate>
+          <div class="form-group"><label for="register-name">Full Name:</label><input type="text" id="register-name" placeholder="John Doe" required><span class="error-message"></span></div>
+          <div class="form-group"><label for="register-email">Email:</label><input type="email" id="register-email" placeholder="your.email@example.com" required><span class="error-message"></span></div>
+          <div class="form-group"><label for="register-password">Password (min. 8 characters):</label><input type="password" id="register-password" required minlength="8"><span class="error-message"></span></div>
+          <button type="submit">Register</button>
+        </form>
+        <p class="auth-toggle-link">Already have an account? <a id="show-login-link" href="#">Login</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="main-app" class="hidden">
+    <nav class="navbar">
+      <div class="logo" onclick="showPageConditional('home')"><span class="car-emoji">🚗</span> ShareRide</div>
+      <nav>
+        <ul id="main-nav-links"> 
+          <li><a href="#home-page" class="nav-link active">Home</a></li>
+          <li><a href="#profile-page" class="nav-link">My Profile <span id="notification-badge" class="hidden"></span></a></li>
+        </ul>
+        <div class="auth-buttons"> 
+          <a id="logout-link" class="logout-btn" href="#">Logout</a>
+          <a id="theme-toggle-btn" href="#"><i class="fas fa-moon"></i></a>
+        </div>
+      </nav>
+    </nav>
+
+    <div class="container">
+      <!-- Home Page -->
+      <section id="home-page" class="page active">
+        <header><h1 id="welcome-message">Welcome!</h1></header>
+        <div class="main-content">
+          <div class="form-section">
+            <h2>👋 Offer a Ride</h2>
+            <form id="offer-ride-form" class="styled-form">
+              <div id="map"></div>
+              <div class="form-group"><label for="origin">Starting From:</label><input type="text" id="origin" required></div>
+              <div class="form-group"><label for="destination">Going To:</label><input type="text" id="destination" required></div>
+              <div class="form-group"><label for="vehicle">Vehicle Type:</label><select id="vehicle"><option>Private Car</option><option>Booked Cab</option><option>Auto Rickshaw</option></select></div>
+              <div class="form-group"><label for="ride-type">Ride Type:</label><select id="ride-type"><option value="One-time">One-time</option><option value="Daily">Daily</option><option value="Weekly">Weekly</option></select></div>
+              <div class="form-group checkbox-group"><input type="checkbox" id="women-only"><label for="women-only">This is a Women-Only Ride</label></div>
+              <button type="submit">Offer My Ride</button>
+            </form>
+          </div>
+
+          <div class="rides-section">
+            <h2>👀 Find a Ride</h2>
+            <div class="filters-container">
+              <div class="search-bar"><input type="text" id="search-destination" placeholder="🔎 Search by destination..."></div>
+              <div class="form-group checkbox-group"><input type="checkbox" id="filter-women-only"><label for="filter-women-only">Women-Only</label></div>
+            </div>
+            <div id="rides-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile Page -->
+      <section id="profile-page" class="page">
+        <h2>My Profile</h2>
+        <div class="profile-details">
+          <p><strong>Name:</strong> <span id="profile-name"></span></p>
+          <p><strong>Email:</strong> <span id="profile-email"></span></p>
+        </div>
+        <div class="profile-rides"><h3>My Offered Rides</h3><div id="offered-rides-list"></div></div>
+        <div class="profile-rides"><h3>My Booked Rides</h3><div id="booked-rides-list"></div></div>
+      </section>
+
+      <!-- Payment Page -->
+      <section id="payment-page" class="page">
+        <div class="form-container">
+          <h2>Confirm Booking</h2>
+          <p id="payment-summary" style="font-size: 1.1em; margin-bottom: 30px;"></p>
+          <div id="payment-choice-container">
+            <button id="pay-cash-btn" class="payment-choice-btn">Confirm (Pay with Cash)</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAC1KxYkt1foA9tFaZVal17GqHWeR1fKoQ",
+      authDomain: "ride-sharing-777.firebaseapp.com",
+      projectId: "ride-sharing-777",
+      storageBucket: "ride-sharing-777.firebasestorage.app",
+      messagingSenderId: "262926870451",
+      appId: "1:262926870451:web:5504fe86348671e1c1cdc6",
+      measurementId: "G-523V5L5LEV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+</body>
+</html>
