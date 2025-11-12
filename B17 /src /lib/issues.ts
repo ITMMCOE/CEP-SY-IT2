@@ -1,0 +1,23 @@
+export const socialIssues = [
+  "Garbage",
+  "Potholes",
+  "Street Light Outage",
+  "Water Leakage",
+  "Sewage Overflow",
+  "Broken Pavement",
+  "Illegal Parking",
+  "Stray Animals",
+  "Noise Complaint",
+  "Graffiti",
+  "Fallen Tree",
+  "Damaged Public Property",
+  "Clogged Drains",
+  "Mosquito Breeding",
+  "Illegal Banners/Posters",
+  "Traffic Signal Malfunction",
+  "Abandoned Vehicle",
+  "Public Park Maintenance",
+  "Unsafe Building",
+  "Waterlogging",
+  "Other"
+];
