@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>Upload inventory data</h1>
+  <p>Upload a CSV file with headers: SR NO., PRODUCT NAME, PRODUCT ID, PRODUCTS ORDERED, PRODUCTS USED, PRODUCTS IN STOCK, RESTOCK. You may also upload an Excel (.xlsx) file with the same header row; it will be converted to CSV automatically.</p>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="submit-row">
+      <input type="file" name="file" accept=".csv,.xlsx" required>
+      <label style="margin-left: 12px;">
+        <input type="radio" name="mode" value="append" checked> Append to existing data
+      </label>
+      <label style="margin-left: 12px;">
+        <input type="radio" name="mode" value="replace_all"> Replace all existing data
+      </label>
+      <input type="submit" value="Upload and Import" class="default">
+      <a href="{% url 'admin:inventory_product_changelist' %}" class="button cancel-link">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

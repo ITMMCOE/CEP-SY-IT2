@@ -1,0 +1,336 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh;
+    }
+    
+    #content {
+        background: transparent !important;
+        max-width: 1600px !important;
+        margin: 0 auto !important;
+        padding: 40px 20px !important;
+    }
+    
+    #content-main {
+        background: transparent !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        padding: 30px;
+        margin-bottom: 30px;
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .stat-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5);
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .glass-table {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: auto;
+    }
+    
+    .glass-table thead {
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .glass-table thead th {
+        color: #fff;
+        font-weight: 600;
+        padding: 16px 20px;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+    
+    .glass-table tbody tr {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: background 0.3s ease;
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    .glass-table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .glass-table tbody td {
+        padding: 16px 20px;
+        color: #fff;
+    }
+    
+    .glass-button {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        font-size: 13px;
+    }
+    
+    .glass-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(31, 38, 135, 0.4);
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    .glass-button.success {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .glass-button.info {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        display: inline-block;
+    }
+    
+    .badge-active {
+        background: rgba(56, 239, 125, 0.3);
+        color: #38ef7d;
+        border: 1px solid rgba(56, 239, 125, 0.5);
+    }
+    
+    .badge-inactive {
+        background: rgba(239, 56, 56, 0.3);
+        color: #ef5656;
+        border: 1px solid rgba(239, 56, 56, 0.5);
+    }
+    
+    .badge-superuser {
+        background: rgba(220, 53, 69, 0.3);
+        color: #ff6b6b;
+        border: 1px solid rgba(220, 53, 69, 0.5);
+    }
+    
+    .badge-staff {
+        background: rgba(255, 193, 7, 0.3);
+        color: #ffd93d;
+        border: 1px solid rgba(255, 193, 7, 0.5);
+    }
+    
+    .badge-user {
+        background: rgba(108, 117, 125, 0.3);
+        color: #adb5bd;
+        border: 1px solid rgba(108, 117, 125, 0.5);
+    }
+    
+    h2, h3 {
+        color: #fff !important;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .stat-number {
+        font-size: 40px;
+        font-weight: 700;
+        color: #fff;
+        margin: 10px 0 0 0;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .stat-label {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+    .stat-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    .glass-table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+    .glass-table tbody tr:nth-child(2) { animation-delay: 0.15s; }
+    .glass-table tbody tr:nth-child(3) { animation-delay: 0.2s; }
+    .glass-table tbody tr:nth-child(4) { animation-delay: 0.25s; }
+    .glass-table tbody tr:nth-child(5) { animation-delay: 0.3s; }
+    .glass-table tbody tr:nth-child(6) { animation-delay: 0.35s; }
+    .glass-table tbody tr:nth-child(7) { animation-delay: 0.4s; }
+    .glass-table tbody tr:nth-child(8) { animation-delay: 0.45s; }
+    
+    /* Hide sidebar and other Django admin elements */
+    #content-related {
+        display: none !important;
+    }
+    
+    .breadcrumbs {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff !important;
+    }
+    
+    .breadcrumbs a {
+        color: #fff !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    
+    {% if user.is_superuser %}
+    <!-- User Summary Section -->
+    <div class="glass-card">
+        <h2 style="margin-top: 0;">👥 User Management Summary</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin: 25px 0;">
+            <div class="stat-card">
+                <p class="stat-label">Total Users</p>
+                <p class="stat-number">{{ total_users }}</p>
+            </div>
+            
+            <div class="stat-card">
+                <p class="stat-label">Active Users</p>
+                <p class="stat-number">{{ active_users }}</p>
+            </div>
+            
+            <div class="stat-card">
+                <p class="stat-label">Superusers</p>
+                <p class="stat-number">{{ superusers }}</p>
+            </div>
+            
+            <div class="stat-card">
+                <p class="stat-label">Staff Users</p>
+                <p class="stat-number">{{ staff_users }}</p>
+            </div>
+        </div>
+        
+        <!-- All Users Table -->
+        <h3 style="margin: 35px 0 20px 0;">📋 All Users</h3>
+        <table class="glass-table">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Username</th>
+                    <th style="text-align: left;">Email</th>
+                    <th style="text-align: center;">Status</th>
+                    <th style="text-align: center;">Role</th>
+                    <th style="text-align: center;">Groups</th>
+                    <th style="text-align: center;">Permissions</th>
+                    <th style="text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_item in all_users %}
+                <tr>
+                    <td>
+                        <strong>{{ user_item.username }}</strong>
+                    </td>
+                    <td>{{ user_item.email|default:"—" }}</td>
+                    <td style="text-align: center;">
+                        {% if user_item.is_active %}
+                            <span class="badge badge-active">Active</span>
+                        {% else %}
+                            <span class="badge badge-inactive">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td style="text-align: center;">
+                        {% if user_item.is_superuser %}
+                            <span class="badge badge-superuser">Superuser</span>
+                        {% elif user_item.is_staff %}
+                            <span class="badge badge-staff">Staff</span>
+                        {% else %}
+                            <span class="badge badge-user">User</span>
+                        {% endif %}
+                    </td>
+                    <td style="text-align: center;">
+                        {% if user_item.groups.all %}
+                            {{ user_item.groups.all|length }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td style="text-align: center;">
+                        {{ user_item.user_permissions.all|length }}
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="{% url 'admin:auth_user_change' user_item.id %}" class="glass-button">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="{% url 'admin:auth_user_add' %}" class="glass-button success" style="padding: 14px 28px; font-size: 14px;">
+                ➕ Create New User
+            </a>
+            <a href="{% url 'admin:auth_group_changelist' %}" class="glass-button info" style="margin-left: 20px; padding: 14px 28px; font-size: 14px;">
+                👥 Manage Groups
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

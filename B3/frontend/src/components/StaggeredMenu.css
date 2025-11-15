@@ -1,0 +1,137 @@
+.staggered-menu__button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.hamburger {
+  width: 28px;
+  height: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.hamburger i {
+  display: block;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.hamburger.is-open i:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.hamburger.is-open i:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-open i:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.staggered-menu__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.staggered-menu__overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 40%;
+  z-index: 1000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.staggered-menu__overlay.left { 
+  left: 0;
+  right: auto;
+  justify-items: start; 
+}
+.staggered-menu__overlay.right { 
+  right: 0;
+  left: auto;
+  justify-items: end; 
+}
+
+.staggered-menu__inner {
+  width: 100%;
+  padding: 48px 32px;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.staggered-menu__logo {
+  width: 96px;
+  height: auto;
+  margin-bottom: 24px;
+}
+.staggered-menu__logo--placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  margin-bottom: 24px;
+}
+
+.staggered-menu__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.staggered-menu__item {
+  font-size: clamp(28px, 5vw, 56px);
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 10px 0;
+}
+.staggered-menu__item a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.staggered-menu__item a:hover .staggered-menu__label {
+  text-decoration: underline;
+}
+.staggered-menu__number {
+  display: inline-block;
+  min-width: 48px;
+  color: #fff !important;
+  opacity: 1;
+  font-weight: 600;
+  font-size: clamp(20px, 4vw, 40px);
+}
+
+.staggered-menu__label { 
+  letter-spacing: 0.3px; 
+  flex: 1;
+}
+
+.staggered-menu__socials {
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.staggered-menu__socials a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  font-weight: 600;
+}
+.staggered-menu__socials a:hover { text-decoration: underline; }

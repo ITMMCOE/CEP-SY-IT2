@@ -1,0 +1,801 @@
+{% extends "admin/base.html" %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    /* Global Glassmorphism Theme - Matching React Pages */
+    body {
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%) !important;
+        background-attachment: fixed;
+        min-height: 100vh;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        color: #f5f5f5;
+    }
+    
+    /* Hide left sidebar navigation */
+    #nav-sidebar {
+        display: none !important;
+    }
+    
+    /* Full width content without sidebar */
+    .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    #content {
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        padding: 32px 16px !important;
+    }
+    
+    /* Back button - Glassmorphism style */
+    .back-button {
+        display: inline-block;
+        background: rgba(20, 20, 30, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        margin: 0 0 24px 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+    
+    .back-button:hover {
+        background: rgba(20, 20, 30, 0.9);
+        border-color: rgba(233, 69, 96, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(233, 69, 96, 0.2);
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    .back-button::before {
+        content: '← ';
+        margin-right: 8px;
+    }
+    
+    /* Header styling */
+    #header {
+        background: rgba(20, 20, 30, 0.8) !important;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+        color: #fff !important;
+        padding: 16px 24px;
+    }
+    
+    #branding h1, #branding h1 a:link, #branding h1 a:visited {
+        color: #fff !important;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        font-weight: 800;
+    }
+    
+    #user-tools {
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    #user-tools a {
+        color: rgba(255, 255, 255, 0.9) !important;
+        border-bottom-color: rgba(233, 69, 96, 0.3) !important;
+        transition: color 0.2s;
+    }
+    
+    #user-tools a:hover {
+        color: #e94560 !important;
+    }
+    
+    /* Breadcrumbs */
+    .breadcrumbs {
+        background: rgba(20, 20, 30, 0.6) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        color: rgba(255, 255, 255, 0.8) !important;
+        border-radius: 12px;
+        margin: 0 0 24px 0;
+        padding: 12px 20px;
+    }
+    
+    .breadcrumbs a {
+        color: rgba(255, 255, 255, 0.8) !important;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    
+    .breadcrumbs a:hover {
+        color: #e94560 !important;
+    }
+    
+    /* Main content area */
+    #content-main {
+        background: transparent !important;
+    }
+    
+    /* Page titles */
+    h1, h2, h3, h4, h5, h6 {
+        color: #fff !important;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        font-weight: 700;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, #e94560 0%, #f07167 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    h2 {
+        font-size: 1.25rem;
+        margin: 20px 0 12px 0;
+        color: #fff !important;
+        -webkit-text-fill-color: #fff !important;
+    }
+    
+    /* Glass cards for forms and modules */
+    .module, 
+    .form-row, 
+    fieldset,
+    .submit-row {
+        background: rgba(20, 20, 30, 0.8) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2) !important;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .module:hover,
+    fieldset:hover {
+        border-color: rgba(233, 69, 96, 0.4);
+        box-shadow: 0 12px 48px rgba(233, 69, 96, 0.1);
+    }
+    
+    /* Form labels */
+    label, 
+    .help, 
+    .helptext, 
+    th,
+    .aligned label {
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    
+    .help, .helptext {
+        color: rgba(255, 255, 255, 0.5) !important;
+        font-size: 12px;
+    }
+    
+    /* Input fields - Glassmorphism */
+    input[type="text"], 
+    input[type="password"], 
+    input[type="email"], 
+    input[type="url"], 
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    input[type="datetime-local"],
+    textarea, 
+    select {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(233, 69, 96, 0.2) !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+        color: #fff !important;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+    
+    input::placeholder, 
+    textarea::placeholder {
+        color: rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    input:focus, 
+    textarea:focus, 
+    select:focus {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: rgba(233, 69, 96, 0.5) !important;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+    }
+    
+    /* Select dropdowns */
+    select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23fff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 36px !important;
+    }
+    
+    select option {
+        background: #1a1a2e;
+        color: #fff;
+        padding: 8px;
+    }
+    
+    /* Multi-select boxes - Critical fix for groups/permissions */
+    select[multiple] {
+        background: rgba(20, 20, 30, 0.9) !important;
+        border: 1px solid rgba(233, 69, 96, 0.3) !important;
+        border-radius: 12px !important;
+        padding: 12px !important;
+        min-height: 200px !important;
+        color: #fff !important;
+    }
+    
+    select[multiple] option {
+        background: transparent;
+        color: #fff !important;
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin: 2px 0;
+        transition: background 0.2s;
+    }
+    
+    select[multiple] option:hover,
+    select[multiple] option:checked {
+        background: rgba(233, 69, 96, 0.2) !important;
+        color: #fff !important;
+    }
+    
+    /* Checkboxes and radio buttons */
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        cursor: pointer;
+        accent-color: #e94560;
+    }
+    
+    .checkbox-row label,
+    .vCheckboxLabel {
+        color: rgba(255, 255, 255, 0.9) !important;
+        cursor: pointer;
+    }
+    
+    /* Submit buttons - Gradient style like React pages */
+    .submit-row {
+        background: rgba(20, 20, 30, 0.6) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2) !important;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    input[type="submit"], 
+    .submit-row input, 
+    button[type="submit"],
+    .button, 
+    input[type="button"],
+    button.default {
+        background: linear-gradient(135deg, #e94560 0%, #f07167 100%) !important;
+        border: 1px solid rgba(233, 69, 96, 0.3) !important;
+        border-radius: 12px !important;
+        color: #fff !important;
+        padding: 12px 28px !important;
+        font-weight: 600 !important;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-shadow: none;
+        font-size: 14px;
+        box-shadow: 0 4px 16px rgba(233, 69, 96, 0.2);
+    }
+    
+    input[type="submit"]:hover, 
+    .submit-row input:hover, 
+    button[type="submit"]:hover,
+    .button:hover,
+    button.default:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(233, 69, 96, 0.4);
+        border-color: rgba(233, 69, 96, 0.5) !important;
+    }
+    
+    /* Delete button - Red gradient */
+    .deletelink, 
+    .deletelink-box,
+    input[name="_delete"],
+    button[name="_delete"] {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+        border: 1px solid rgba(220, 53, 69, 0.3) !important;
+    }
+    
+    .deletelink:hover,
+    .deletelink-box:hover,
+    input[name="_delete"]:hover,
+    button[name="_delete"]:hover {
+        box-shadow: 0 8px 24px rgba(220, 53, 69, 0.4);
+    }
+    
+    /* Add/Change links */
+    .addlink {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+        border: 1px solid rgba(56, 239, 125, 0.3) !important;
+        padding: 10px 20px !important;
+        border-radius: 10px !important;
+        color: #fff !important;
+        text-decoration: none !important;
+        display: inline-block;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .addlink:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 239, 125, 0.3);
+    }
+    
+    .changelink {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+        border: 1px solid rgba(79, 172, 254, 0.3) !important;
+        padding: 10px 20px !important;
+        border-radius: 10px !important;
+        color: #fff !important;
+        text-decoration: none !important;
+        display: inline-block;
+        font-weight: 600;
+    }
+    
+    /* Tables */
+    table {
+        background: rgba(20, 20, 30, 0.6) !important;
+        border-radius: 12px;
+        overflow: hidden;
+        border-collapse: collapse;
+    }
+    
+    thead th {
+        background: rgba(233, 69, 96, 0.2) !important;
+        border-bottom: 1px solid rgba(233, 69, 96, 0.3) !important;
+        color: #fff !important;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+        padding: 16px !important;
+    }
+    
+    tbody tr {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: background 0.2s;
+    }
+    
+    tbody tr:hover {
+        background: rgba(233, 69, 96, 0.05) !important;
+    }
+    
+    tbody td {
+        color: rgba(255, 255, 255, 0.9);
+        padding: 14px 16px !important;
+    }
+    
+    tbody th {
+        background: rgba(255, 255, 255, 0.03);
+        color: #fff;
+    }
+    
+    /* Selector widget for groups/permissions */
+    .selector {
+        background: transparent !important;
+        border: none !important;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+    
+    .selector .selector-available,
+    .selector .selector-chosen {
+        flex: 1;
+        background: rgba(20, 20, 30, 0.8) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2) !important;
+        border-radius: 12px;
+        padding: 16px;
+    }
+    
+    .selector h2 {
+        background: rgba(233, 69, 96, 0.2) !important;
+        border: 1px solid rgba(233, 69, 96, 0.3) !important;
+        border-radius: 8px;
+        padding: 12px 16px !important;
+        margin: 0 0 12px 0 !important;
+        color: #fff !important;
+        font-size: 13px !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        -webkit-text-fill-color: #fff !important;
+    }
+    
+    .selector-chosen h2 {
+        background: rgba(56, 239, 125, 0.2) !important;
+        border: 1px solid rgba(56, 239, 125, 0.3) !important;
+    }
+    
+    .selector-available h2 {
+        background: rgba(79, 172, 254, 0.2) !important;
+        border: 1px solid rgba(79, 172, 254, 0.3) !important;
+    }
+    
+    .selector select {
+        background: rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid rgba(233, 69, 96, 0.2) !important;
+        color: #fff !important;
+        min-height: 200px !important;
+    }
+    
+    .selector-filter {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(233, 69, 96, 0.2) !important;
+        border-radius: 8px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+    }
+    
+    .selector-filter input {
+        background: transparent !important;
+        border: none !important;
+        color: #fff !important;
+        padding: 0 !important;
+    }
+    
+    .selector-filter label {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+    
+    .selector-chooser {
+        background: transparent !important;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        justify-content: center;
+    }
+    
+    .selector-add, 
+    .selector-remove {
+        background: rgba(233, 69, 96, 0.2) !important;
+        border: 1px solid rgba(233, 69, 96, 0.3) !important;
+        color: #fff !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .selector-add:hover,
+    .selector-remove:hover {
+        background: rgba(233, 69, 96, 0.3) !important;
+        transform: scale(1.05);
+    }
+    
+    .selector-chosen .selector-filter {
+        border-color: rgba(56, 239, 125, 0.2) !important;
+    }
+    
+    .selector-available .selector-filter {
+        border-color: rgba(79, 172, 254, 0.2) !important;
+    }
+    
+    /* Help text under selectors */
+    .selector + .help,
+    .selector + p {
+        color: rgba(255, 255, 255, 0.5) !important;
+        font-size: 12px;
+        margin-top: 8px;
+    }
+    
+    /* Error messages */
+    .errorlist {
+        background: rgba(220, 53, 69, 0.15);
+        border: 1px solid rgba(220, 53, 69, 0.4);
+        color: #ff6b6b;
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin: 10px 0;
+        list-style: none;
+    }
+    
+    .errorlist li {
+        margin: 4px 0;
+    }
+    
+    .errornote {
+        background: rgba(220, 53, 69, 0.15);
+        border: 1px solid rgba(220, 53, 69, 0.4);
+        color: #ff6b6b;
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+    }
+    
+    /* Success messages */
+    .success, 
+    .messagelist .success {
+        background: rgba(56, 239, 125, 0.15);
+        border: 1px solid rgba(56, 239, 125, 0.4);
+        color: #38ef7d;
+        border-radius: 10px;
+        padding: 16px 20px;
+    }
+    
+    .messagelist {
+        margin: 0 0 24px 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    .messagelist li {
+        background: rgba(20, 20, 30, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        border-radius: 12px;
+        padding: 16px 20px;
+        color: #fff;
+        margin-bottom: 12px;
+    }
+    
+    .messagelist .warning {
+        background: rgba(255, 193, 7, 0.15);
+        border-color: rgba(255, 193, 7, 0.4);
+        color: #ffd93d;
+    }
+    
+    .messagelist .info {
+        background: rgba(79, 172, 254, 0.15);
+        border-color: rgba(79, 172, 254, 0.4);
+        color: #4facfe;
+    }
+    
+    /* Filter sidebar */
+    #changelist {
+        background: transparent;
+    }
+    
+    #changelist-filter {
+        background: rgba(20, 20, 30, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        border-radius: 16px;
+        padding: 20px;
+        margin-left: 20px;
+    }
+    
+    #changelist-filter h2, 
+    #changelist-filter h3 {
+        color: #fff !important;
+        font-size: 14px;
+        margin: 0 0 12px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+        -webkit-text-fill-color: #fff !important;
+    }
+    
+    #changelist-filter li {
+        color: rgba(255, 255, 255, 0.7);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 8px 0;
+    }
+    
+    #changelist-filter a {
+        color: rgba(255, 255, 255, 0.7) !important;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    
+    #changelist-filter a:hover {
+        color: #e94560 !important;
+    }
+    
+    #changelist-filter .selected {
+        color: #e94560 !important;
+        font-weight: 600;
+    }
+    
+    /* Object tools */
+    .object-tools {
+        margin: 0 0 20px 0;
+        float: right;
+    }
+    
+    .object-tools a,
+    .object-tools li {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+        border: 1px solid rgba(56, 239, 125, 0.3) !important;
+        border-radius: 12px !important;
+        padding: 12px 24px !important;
+        color: #fff !important;
+        text-shadow: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none !important;
+    }
+    
+    .object-tools a:hover,
+    .object-tools li:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 239, 125, 0.4);
+    }
+    
+    /* Search bar */
+    .searchbar,
+    #searchbar,
+    #changelist-search input[type="text"] {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(233, 69, 96, 0.2) !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+        color: #fff !important;
+    }
+    
+    #toolbar {
+        background: rgba(20, 20, 30, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+    
+    /* Calendar and time pickers */
+    .calendarbox, 
+    .clockbox,
+    .datetimeshortcuts {
+        background: rgba(10, 10, 15, 0.95) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.3);
+        border-radius: 12px;
+    }
+    
+    .calendar caption, 
+    .calendarbox h2 {
+        background: rgba(233, 69, 96, 0.3);
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    .calendar td, 
+    .calendarbox td {
+        background: rgba(255, 255, 255, 0.03);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .calendar td a, 
+    .calendarbox td a {
+        color: #fff !important;
+        padding: 6px;
+        display: block;
+    }
+    
+    .calendar td a:hover, 
+    .calendarbox td a:hover {
+        background: rgba(233, 69, 96, 0.2) !important;
+        border-radius: 4px;
+    }
+    
+    .calendar .today {
+        background: rgba(56, 239, 125, 0.2) !important;
+    }
+    
+    /* Inline forms */
+    .inline-group {
+        background: rgba(20, 20, 30, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .inline-related h3 {
+        background: rgba(233, 69, 96, 0.2);
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin: 0 0 12px 0;
+    }
+    
+    /* Paginator */
+    .paginator {
+        background: rgba(20, 20, 30, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        border-radius: 12px;
+        padding: 12px 16px;
+        color: #fff;
+        margin: 20px 0;
+    }
+    
+    .paginator a {
+        color: #fff !important;
+        background: rgba(233, 69, 96, 0.2);
+        border: 1px solid rgba(233, 69, 96, 0.3);
+        border-radius: 8px;
+        padding: 6px 12px;
+        margin: 0 4px;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    
+    .paginator a:hover {
+        background: rgba(233, 69, 96, 0.3);
+        transform: translateY(-1px);
+    }
+    
+    .paginator .this-page {
+        color: #e94560;
+        font-weight: 600;
+    }
+    
+    /* Animation */
+    .module, 
+    .form-row, 
+    fieldset,
+    .inline-group {
+        animation: fadeInUp 0.4s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Loading spinner */
+    .loading {
+        color: #e94560 !important;
+    }
+    
+    /* Autocomplete */
+    .select2-container--admin-autocomplete .select2-results__option {
+        background: #1a1a2e;
+        color: #fff;
+    }
+    
+    .select2-container--admin-autocomplete .select2-results__option--highlighted {
+        background: rgba(233, 69, 96, 0.3) !important;
+    }
+    
+    /* Related widget */
+    .related-widget-wrapper {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .related-widget-wrapper-link {
+        background: rgba(233, 69, 96, 0.2) !important;
+        border: 1px solid rgba(233, 69, 96, 0.3) !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        color: #fff !important;
+        text-decoration: none !important;
+        transition: all 0.2s;
+    }
+    
+    .related-widget-wrapper-link:hover {
+        background: rgba(233, 69, 96, 0.3) !important;
+    }
+</style>
+{% endblock %}
