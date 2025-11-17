@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: phishguard
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NODE_ENV
+        value: production
+      - key: NPM_CONFIG_LEGACY_PEER_DEPS
+        value: "true"
+    # Auto-deploy on push
+    autoDeploy: true
+    # Health check path
+    healthCheckPath: /

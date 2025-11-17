@@ -1,0 +1,348 @@
+================================================================================
+                    PHISH GUARD - TECHNOLOGY STACK DOCUMENTATION
+================================================================================
+
+PROJECT OVERVIEW:
+PhishGuard is a web-based phishing detection application that uses machine 
+learning and rule-based analysis to identify potentially malicious URLs, 
+emails, and messages.
+
+================================================================================
+FRONTEND TECHNOLOGIES
+================================================================================
+
+1. NEXT.JS 14.0.0 (React Framework)
+   Purpose: Core application framework
+   Usage:
+   - Server-side rendering (SSR) and static site generation (SSG)
+   - File-based routing system
+   - API routes for server-side logic
+   - Built-in optimization for performance
+   - App Router architecture (using src/app directory)
+   Files: All files in src/app/, next.config.js, next-env.d.ts
+
+2. REACT 18 & REACT-DOM 18
+   Purpose: UI library for building interactive user interfaces
+   Usage:
+   - Component-based architecture
+   - State management with hooks (useState, useTransition)
+   - Virtual DOM for efficient rendering
+   Files: All .tsx/.jsx files in src/components/ and src/app/
+
+3. TYPESCRIPT 5
+   Purpose: Static type checking and improved developer experience
+   Usage:
+   - Type-safe code throughout the application
+   - Interface definitions for data structures
+   - Enhanced IDE support and autocomplete
+   Files: All .ts and .tsx files, tsconfig.json
+
+4. TAILWIND CSS 3.3.0
+   Purpose: Utility-first CSS framework for styling
+   Usage:
+   - Responsive design
+   - Dark mode support
+   - Custom component styling
+   - Consistent design system
+   Files: src/app/globals.css, tailwind.config.js, postcss.config.js
+   Additional: tailwindcss-animate for animations
+
+5. RADIX UI COMPONENTS
+   Purpose: Headless, accessible UI component library
+   Components Used:
+   - @radix-ui/react-accordion: Collapsible content sections
+   - @radix-ui/react-dropdown-menu: Dropdown menus
+   - @radix-ui/react-label: Form labels
+   - @radix-ui/react-slot: Component composition
+   - @radix-ui/react-tabs: Tab navigation
+   - @radix-ui/react-toast: Notification system
+   Usage: Building accessible, customizable UI components
+   Files: All components in src/components/ui/
+
+6. LUCIDE-REACT 0.294.0
+   Purpose: Icon library
+   Usage:
+   - Consistent iconography throughout the app
+   - SVG-based icons for scalability
+   - Examples: AlertCircle, Shield, CheckCircle icons
+   Files: Used across components for visual indicators
+
+7. NEXT-THEMES 0.2.1
+   Purpose: Theme management for Next.js
+   Usage:
+   - Dark/light mode toggle
+   - System preference detection
+   - Persistent theme selection
+   Files: src/components/theme-provider.tsx, src/components/ui/theme-toggle.tsx
+
+================================================================================
+FORM HANDLING & VALIDATION
+================================================================================
+
+1. REACT-HOOK-FORM 7.48.2
+   Purpose: Efficient form state management
+   Usage:
+   - Form validation
+   - Input handling
+   - Performance optimization (minimal re-renders)
+   Files: src/components/phish-guard/analysis-form.tsx
+
+2. ZOD 3.22.4
+   Purpose: TypeScript-first schema validation
+   Usage:
+   - Input validation
+   - Type inference
+   - Runtime type checking
+   Integration: Works with @hookform/resolvers for form validation
+
+3. @HOOKFORM/RESOLVERS 3.3.2
+   Purpose: Validation resolver for react-hook-form
+   Usage: Connects Zod schemas with react-hook-form
+
+================================================================================
+MACHINE LEARNING & AI
+================================================================================
+
+1. TENSORFLOW.JS (@tensorflow/tfjs) 4.11.0
+   Purpose: Machine learning framework for JavaScript
+   Usage:
+   - Client-side ML model execution
+   - Browser-based inference
+   - No server required for predictions
+   Files: src/lib/ml-analyzer.ts
+
+2. UNIVERSAL SENTENCE ENCODER (@tensorflow-models/universal-sentence-encoder) 1.3.3
+   Purpose: Pre-trained NLP model for text embedding
+   Usage:
+   - Convert text to high-dimensional vectors
+   - Semantic similarity analysis
+   - Text classification for phishing detection
+   - Pattern recognition in URLs and messages
+   Files: src/lib/ml-analyzer.ts
+
+================================================================================
+BACKEND & DATABASE
+================================================================================
+
+1. FIREBASE 10.7.1
+   Purpose: Backend-as-a-Service platform
+   Potential Usage:
+   - Authentication (if implemented)
+   - Cloud Firestore for data storage
+   - Analytics and monitoring
+   - Hosting capabilities
+   Files: src/lib/firebase.ts
+
+2. NEXT.JS SERVER ACTIONS
+   Purpose: Server-side data mutations and API handling
+   Usage:
+   - Form submission handling
+   - Server-side content analysis
+   - API route alternatives with type safety
+   Files: src/app/actions.ts
+
+================================================================================
+ANALYSIS & DETECTION LOGIC
+================================================================================
+
+1. LOCAL ANALYZER (Custom Rule-Based System)
+   Purpose: Heuristic-based phishing detection
+   Features:
+   - URL pattern analysis
+   - Suspicious keyword detection
+   - Domain verification
+   - Link structure analysis
+   - Risk scoring algorithm
+   Files: src/lib/local-analyzer.ts
+
+2. ML ANALYZER (Machine Learning System)
+   Purpose: AI-powered content analysis
+   Features:
+   - Text embedding with Universal Sentence Encoder
+   - Semantic similarity detection
+   - Keyword severity weighting (High/Medium/Low risk)
+   - Advanced pattern recognition
+   - Confidence scoring
+   Files: src/lib/ml-analyzer.ts
+
+3. SAMPLE DATA & PLACEHOLDER SYSTEM
+   Purpose: Testing and demonstration data
+   Files: 
+   - src/lib/sample-data.ts
+   - src/lib/placeholder-images.json
+   - src/lib/placeholder-images.ts
+
+================================================================================
+UTILITY LIBRARIES
+================================================================================
+
+1. CLASS-VARIANCE-AUTHORITY (CVA) 0.7.0
+   Purpose: CSS class composition utility
+   Usage: Creating variant-based component styles
+
+2. CLSX 2.0.0
+   Purpose: Conditional className joining
+   Usage: Dynamic class name composition
+
+3. TAILWIND-MERGE 2.2.0
+   Purpose: Merge Tailwind CSS classes intelligently
+   Usage: Prevent conflicting utility classes
+   Files: src/lib/utils.ts (combined with clsx for cn() utility)
+
+================================================================================
+CUSTOM HOOKS
+================================================================================
+
+1. USE-TOAST
+   Purpose: Toast notification management
+   Files: src/hooks/use-toast.ts
+
+2. USE-MOBILE
+   Purpose: Responsive design detection
+   Files: src/hooks/use-mobile.tsx
+
+================================================================================
+DEVELOPMENT TOOLS
+================================================================================
+
+1. ESLINT 8
+   Purpose: Code linting and quality enforcement
+   Usage: Identifying code issues and enforcing best practices
+   Config: eslint-config-next for Next.js specific rules
+
+2. AUTOPREFIXER 10.4.16
+   Purpose: Automatically add vendor prefixes to CSS
+   Usage: Cross-browser CSS compatibility
+
+3. POSTCSS 8.4.32
+   Purpose: CSS transformation tool
+   Usage: Process Tailwind CSS and other CSS transformations
+   Files: postcss.config.js
+
+================================================================================
+BUILD & DEPLOYMENT
+================================================================================
+
+1. NPM SCRIPTS
+   - "dev": Development server (next dev)
+   - "build": Production build (next build)
+   - "start": Production server (next start)
+   - "lint": Code linting (next lint)
+
+2. START-APP.BAT
+   Purpose: Windows batch script for easy application startup
+   Usage: Quick launch script for development or production
+
+================================================================================
+PROJECT STRUCTURE ARCHITECTURE
+================================================================================
+
+1. APP DIRECTORY (src/app/)
+   Purpose: Next.js 14 App Router
+   Contents:
+   - page.tsx: Main application page
+   - layout.tsx: Root layout wrapper
+   - loading.tsx: Loading UI fallback
+   - actions.ts: Server actions
+   - globals.css: Global styles
+
+2. COMPONENTS DIRECTORY (src/components/)
+   Purpose: Reusable UI components
+   Structure:
+   - ui/: Generic UI components (buttons, cards, forms, etc.)
+   - phish-guard/: Application-specific components
+   - theme-provider.tsx: Theme context provider
+
+3. LIB DIRECTORY (src/lib/)
+   Purpose: Business logic and utilities
+   Contents:
+   - Analysis engines (local-analyzer.ts, ml-analyzer.ts)
+   - Firebase configuration
+   - Utility functions (utils.ts)
+   - Sample/test data
+
+4. HOOKS DIRECTORY (src/hooks/)
+   Purpose: Custom React hooks for shared logic
+
+================================================================================
+KEY DESIGN PATTERNS
+================================================================================
+
+1. SERVER-SIDE RENDERING (SSR)
+   - Next.js handles server rendering for better SEO and performance
+   - Client components marked with 'use client' directive
+
+2. COMPONENT COMPOSITION
+   - Atomic design methodology
+   - Reusable UI components in ui/ directory
+   - Feature-specific components in phish-guard/
+
+3. TYPE SAFETY
+   - TypeScript throughout the application
+   - Zod for runtime validation
+   - Interface definitions for data structures
+
+4. HYBRID ANALYSIS APPROACH
+   - Rule-based detection (local-analyzer)
+   - ML-powered detection (ml-analyzer)
+   - Combined scoring for accurate results
+
+5. CLIENT-SIDE ML
+   - TensorFlow.js runs entirely in browser
+   - No server costs for ML inference
+   - Privacy-friendly (no data sent to server for analysis)
+
+6. PROGRESSIVE ENHANCEMENT
+   - Loading states and skeletons
+   - Error handling with fallbacks
+   - Responsive design for all devices
+
+================================================================================
+SECURITY & PRIVACY FEATURES
+================================================================================
+
+1. Client-Side Analysis
+   - All phishing analysis happens in the browser
+   - No sensitive data transmitted to external servers
+   - User privacy protected
+
+2. Firebase Security
+   - Configuration for potential authentication
+   - Secure API keys management
+
+================================================================================
+PERFORMANCE OPTIMIZATIONS
+================================================================================
+
+1. Code Splitting
+   - Next.js automatic code splitting
+   - Dynamic imports where needed
+
+2. Image Optimization
+   - Next.js built-in image optimization (if using next/image)
+
+3. CSS Optimization
+   - Tailwind CSS purges unused styles in production
+   - PostCSS optimization pipeline
+
+4. ML Model Caching
+   - Universal Sentence Encoder model cached after first load
+   - Reduces subsequent load times
+
+================================================================================
+BROWSER COMPATIBILITY
+================================================================================
+
+Requirements:
+- Modern browsers with JavaScript enabled
+- WebGL support for TensorFlow.js
+- ES6+ JavaScript features
+- LocalStorage for theme persistence
+
+================================================================================
+END OF DOCUMENTATION
+================================================================================
+
+Last Updated: Created for initial project analysis
+Version: 1.0
+Project Name: PhishGuard (Phishing Detection Application)
