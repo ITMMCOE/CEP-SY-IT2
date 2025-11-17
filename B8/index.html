@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFinds - Lost & Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script>
+        tailwind.config = {
+          theme: { extend: { colors: { 'dark-primary': '#1B1931', 'card-bg': '#44174E', 'accent-magenta': '#662249', 'accent-rosy': '#A34054', 'accent-gold': '#ED9E59', 'light-text': '#E9BCB9' } } }
+        }
+    </script>
+</head>
+<body class="bg-dark-primary text-light-text font-sans">
+    <div id="app" class="container mx-auto px-4 py-8">
+        <nav class="flex justify-between items-center mb-12">
+            <a href="/" class="text-3xl font-bold text-accent-gold">CampusFinds</a>
+            <div id="nav-links"></div>
+        </nav>
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold mb-4 text-white">Lost Something? Found Something?</h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">The central hub for lost and found items on campus. Let's help each other out.</p>
+        </header>
+        <section id="search-section" class="mb-10 p-6 bg-card-bg/30 rounded-lg shadow-lg border border-accent-magenta/50">
+            <form id="search-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                <div class="md:col-span-2">
+                    <label for="search-query" class="block mb-2 text-sm font-medium text-gray-300">Search by keyword</label>
+                    <input type="text" id="search-query" name="q" placeholder="e.g., Black Backpack, iPhone 14" class="w-full bg-dark-primary border border-accent-magenta rounded-md p-2.5 focus:ring-accent-gold focus:border-accent-gold text-light-text">
+                </div>
+                <div>
+                    <label for="search-category" class="block mb-2 text-sm font-medium text-gray-300">Category</label>
+                    <select id="search-category" name="category" class="w-full bg-dark-primary border border-accent-magenta rounded-md p-2.5 focus:ring-accent-gold focus:border-accent-gold text-light-text">
+                        <option value="">All Categories</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="ID Cards">ID Cards</option>
+                        <option value="Books">Books</option>
+                        <option value="Keys">Keys</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="w-full text-dark-primary bg-accent-gold hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Search Items</button>
+                </div>
+            </form>
+        </section>
+        <main>
+            <h2 class="text-3xl font-bold mb-6 text-white">Recently Reported Items</h2>
+            <div id="items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+            <div id="no-items-message" class="text-center py-10 text-gray-400" style="display: none;">No items found matching your criteria.</div>
+        </main>
+        <footer class="text-center mt-16 text-gray-500">
+            <p>&copy; 2025 CampusFinds. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="/public/js/app.js"></script>
+</body>
+</html>

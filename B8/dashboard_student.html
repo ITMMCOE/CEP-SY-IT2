@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - CampusFinds</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script>
+        tailwind.config = {
+          theme: { extend: { colors: { 'dark-primary': '#1B1931', 'card-bg': '#44174E', 'accent-magenta': '#662249', 'accent-rosy': '#A34054', 'accent-gold': '#ED9E59', 'light-text': '#E9BCB9' } } }
+        }
+    </script>
+</head>
+<body class="bg-dark-primary text-light-text font-sans">
+    <div id="app" class="container mx-auto px-4 py-8">
+        <nav class="flex justify-between items-center mb-12">
+            <a href="/" class="text-3xl font-bold text-accent-gold">CampusFinds</a>
+            <div id="nav-links"></div>
+        </nav>
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-white">Student Dashboard</h1>
+            <a href="/public/post_lost.html" class="text-dark-primary bg-accent-gold hover:bg-yellow-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center">+ Post a New Item</a>
+        </header>
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 text-white">My Posts</h2>
+            <div id="my-items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="no-my-items-message" class="text-center py-10 text-gray-400" style="display: none;">You haven't posted any items yet.</div>
+        </section>
+        <section>
+            <h2 class="text-2xl font-semibold mb-4 text-white">Unresolved Lost Items on Campus</h2>
+            <div id="unresolved-items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="no-unresolved-items-message" class="text-center py-10 text-gray-400" style="display: none;">No unresolved lost items found on campus.</div>
+        </section>
+    </div>
+    <script src="/public/js/app.js"></script>
+</body>
+</html>

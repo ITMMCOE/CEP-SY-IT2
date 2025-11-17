@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CampusFinds</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script>
+        tailwind.config = {
+          theme: { extend: { colors: { 'dark-primary': '#1B1931', 'card-bg': '#44174E', 'accent-magenta': '#662249', 'accent-rosy': '#A34054', 'accent-gold': '#ED9E59', 'light-text': '#E9BCB9' } } }
+        }
+    </script>
+</head>
+<body class="bg-dark-primary text-light-text font-sans">
+    <div id="app" class="container mx-auto px-4 py-8">
+        <nav class="flex justify-between items-center mb-12">
+            <a href="/" class="text-3xl font-bold text-accent-gold">CampusFinds</a>
+            <div id="nav-links"></div>
+        </nav>
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold text-white">Admin Dashboard</h1>
+        </header>
+        <section id="stats-section" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"></section>
+        <section id="pending-admins-section" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 text-white">Pending Admin Approvals</h2>
+            <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-300">
+                    <thead class="text-xs text-gray-200 uppercase bg-card-bg/60">
+                        <tr>
+                            <th scope="col" class="py-3 px-6">Name</th>
+                            <th scope="col" class="py-3 px-6">Email</th>
+                            <th scope="col" class="py-3 px-6">Date Registered</th>
+                            <th scope="col" class="py-3 px-6">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pending-admins-tbody"></tbody>
+                </table>
+                 <div id="no-pending-admins-msg" class="text-center py-5 text-gray-400 bg-card-bg/30" style="display: none;">No pending admin registrations.</div>
+            </div>
+        </section>
+        <section>
+            <h2 class="text-2xl font-semibold mb-4 text-white">All Reported Items</h2>
+            <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-300">
+                    <thead class="text-xs text-gray-200 uppercase bg-card-bg/60">
+                        <tr>
+                            <th scope="col" class="py-3 px-6">Item</th>
+                            <th scope="col" class="py-3 px-6">Category</th>
+                            <th scope="col" class="py-3 px-6">Status</th>
+                            <th scope="col" class="py-3 px-6">Posted By</th>
+                            <th scope="col" class="py-3 px-6">Date</th>
+                            <th scope="col" class="py-3 px-6">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-items-table-body"></tbody>
+                </table>
+                 <div id="no-items-message" class="text-center py-10 text-gray-400 bg-card-bg/30" style="display: none;">No items have been posted yet.</div>
+            </div>
+        </section>
+    </div>
+    <script src="/public/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Item - CampusFinds</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script>
+        tailwind.config = {
+          theme: { extend: { colors: { 'dark-primary': '#1B1931', 'card-bg': '#44174E', 'accent-magenta': '#662249', 'accent-rosy': '#A34054', 'accent-gold': '#ED9E59', 'light-text': '#E9BCB9' } } }
+        }
+    </script>
+</head>
+<body class="bg-dark-primary text-light-text font-sans">
+    <div id="app" class="container mx-auto px-4 py-8">
+        <nav class="flex justify-between items-center mb-12">
+            <a href="/" class="text-3xl font-bold text-accent-gold">CampusFinds</a>
+            <div id="nav-links"></div>
+        </nav>
+        <main id="item-details-container"></main>
+    </div>
+    <script src="/public/js/app.js"></script>
+</body>
+</html>

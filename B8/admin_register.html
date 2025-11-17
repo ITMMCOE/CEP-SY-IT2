@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Registration - CampusFinds</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script>
+        tailwind.config = {
+          theme: { extend: { colors: { 'dark-primary': '#1B1931', 'card-bg': '#44174E', 'accent-magenta': '#662249', 'accent-rosy': '#A34054', 'accent-gold': '#ED9E59', 'light-text': '#E9BCB9' } } }
+        }
+    </script>
+</head>
+<body class="bg-dark-primary text-light-text font-sans flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md p-8 space-y-8 bg-card-bg/50 rounded-xl shadow-lg border border-accent-magenta">
+        <div>
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-white">Admin Registration</h2>
+            <p class="mt-2 text-center text-sm text-gray-400">Your account will require approval from a Super Admin.</p>
+        </div>
+        <form id="admin-register-form" class="mt-8 space-y-6">
+            <div class="rounded-md shadow-sm -space-y-px">
+                <div>
+                    <label for="name" class="sr-only">Full Name</label>
+                    <input id="name" name="name" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-accent-magenta bg-dark-primary placeholder-gray-500 text-light-text rounded-t-md focus:outline-none focus:ring-accent-gold focus:border-accent-gold focus:z-10 sm:text-sm" placeholder="Full Name">
+                </div>
+                <div>
+                    <label for="email" class="sr-only">Email address</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-accent-magenta bg-dark-primary placeholder-gray-500 text-light-text focus:outline-none focus:ring-accent-gold focus:border-accent-gold focus:z-10 sm:text-sm" placeholder="Email address">
+                </div>
+                <div>
+                    <label for="password" class="sr-only">Password</label>
+                    <input id="password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-accent-magenta bg-dark-primary placeholder-gray-500 text-light-text rounded-b-md focus:outline-none focus:ring-accent-gold focus:border-accent-gold focus:z-10 sm:text-sm" placeholder="Password">
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-dark-primary bg-accent-gold hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-gold focus:ring-offset-dark-primary">Request Approval</button>
+            </div>
+            <div id="message" class="text-sm text-center"></div>
+        </form>
+    </div>
+    <script src="/public/js/app.js"></script>
+</body>
+</html>
